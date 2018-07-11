@@ -8,7 +8,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
-import RuleDetail from 'root/components/rule-detail';
+import RuleDetail from 'root/scenes/rule-screen/components/rule-detail';
 
 import {
   SubHeaderPanel,
