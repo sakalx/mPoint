@@ -1,7 +1,15 @@
 import React from 'react';
 
-import {isString, isPercentage} from 'root/helpers/validator';
-import {camelCaseToString} from 'root/helpers/camel-case';
+import {InputField} from './style';
 
-import TextField from '@material-ui/core/TextField';
+const RenderInput = ({ref, label, ...other}) =>
+  <InputField
+    fullWidth
+    label={label}
+    InputProps={{
+      inputRef: ref,
+      ...other,
+    }}
+  />;
 
+export default RenderInput

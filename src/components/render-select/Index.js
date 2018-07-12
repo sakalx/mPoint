@@ -12,7 +12,7 @@ class RenderSelect extends React.PureComponent {
   };
 
   render() {
-    const {label, list, onChangeRegion, value} = this.props;
+    const {label, list, onChange, value} = this.props;
 
     return (
       <Select
@@ -20,12 +20,12 @@ class RenderSelect extends React.PureComponent {
         select
         label={label}
         value={value}
-        onChange={({target: {value}}) => onChangeRegion({value})}
+        onChange={({target: {value}}) => onChange({value})}
         margin="normal"
       >
-        {list.map(({value}, index) => (
-          <MenuItem key={String(index)} value={value}>
-            {value}
+        {list.map(({label}, index) => (
+          <MenuItem key={String(index)} value={label}>
+            {label}
           </MenuItem>
         ))}
       </Select>
