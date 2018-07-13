@@ -1,15 +1,24 @@
 import React from 'react';
 
+import {camelCaseToString} from 'root/helpers/camel-case';
+
 import {InputField} from './style';
 
-const RenderInput = ({ref, label, ...other}) =>
-  <InputField
-    fullWidth
-    label={label}
-    InputProps={{
-      inputRef: ref,
-      ...other,
-    }}
-  />;
+const RenderInput = ({ref, stateKey, ...other}) => {
+
+
+
+  return(
+    <InputField
+      fullWidth
+      label={camelCaseToString(stateKey)}
+      margin="normal"
+      required={true}
+      InputProps={{
+        inputRef: ref,
+        ...other,
+      }}
+    />)
+} ;
 
 export default RenderInput

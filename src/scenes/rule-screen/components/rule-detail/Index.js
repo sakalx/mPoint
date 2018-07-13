@@ -1,62 +1,53 @@
 import React from 'react';
 
-import {isString, isPercentage} from 'root/helpers/validator';
-import {camelCaseToString} from 'root/helpers/camel-case';
 import {
   listOfCompanies,
   listOfRegions,
-  listOfSwitchesRuleDetail,
+  listOfRuleNames,
 } from 'root/static/lists-for-select';
-
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 
 import RenderSelect from 'root/components/render-select';
 import Autocomplete from 'root/components/render-autocomplete';
 import RangeSlider from 'root/components/render-range-slider';
-import SwitchesGroup from 'root/components/render-switches';
+import SwitchesGroup from 'root/components/render-switches-group';
+import CheckboxesGroup from 'root/components/render-checkboxes-group';
+
+import Slide from '@material-ui/core/Slide';
 
 import {
-  PercentageInput,
+  PrefixRuleName,
+  SectionCompany,
   Wrap,
 } from './style';
 
-
 class RuleDetail extends React.PureComponent {
   state = {
-    ruleName: {
-      value: '',
-      error: false,
-      errorLabel: 'You can use only letters',
-    },
+    region: {value: ''},
     company: {value: ''},
-    region: {value: "USA - East"},
+    ruleName: {value: ''},
     percentage: {value: 0},
     switches: {
       SSP: false,
       DSP: false,
     },
+    checkboxes: {
+      URL: false,
+      Inactive: false,
+      Impression: false,
+      Test: false,
+    },
   };
 
-  handleChange = (key, validator) => event => {
-    const value = event.target.value.trimStart();
-    const {errorLabel} = this.state[key];
-    const valid = value.length === 0 || validator(value);
-
-    const setStateError = error =>
-      this.setState({[key]: {value, error, errorLabel}});
-
-    (valid)
-      ? setStateError(false)
-      : setStateError(true)
+  handleChangeRegion = region => {
+    this.setState({region})
   };
 
   handleChangeCompany = (event, {newValue}) => {
     this.setState({company: {value: newValue}});
   };
 
-  handleChangeRegion = region => {
-    this.setState({region})
+  handleChangeRuleName = (event, {newValue}) => {
+    this.setState({ruleName: {value: newValue.trimStart()}});
   };
 
   handleChangePercentage = (event, value) => {
@@ -74,37 +65,29 @@ class RuleDetail extends React.PureComponent {
     });
   };
 
-  renderInputField = (key, validator) => {
-    const {value, error, errorLabel} = this.state[key];
-
-    const label = (error)
-      ? errorLabel
-      : camelCaseToString(key);
-
-    return (
-      <TextField
-        error={error}
-        id={key}
-        label={label}
-        margin="normal"
-        onChange={this.handleChange(key, validator)}
-        value={value}
-      />
-    )
+  handleChangeCheckboxes = label => event => {
+    this.setState({
+      checkboxes: {
+        ...this.state.checkboxes,
+        [label]: event.target.checked,
+      },
+    });
   };
 
+  renderPrefixRuleName = () => (
+    <PrefixRuleName variant="caption">
+      {this.state.company.value}
+    </PrefixRuleName>
+  );
 
   render() {
-    const {company, region, percentage, switches} = this.state;
+    const {
+      company, region, percentage, switches, checkboxes, ruleName,
+    } = this.state;
+
 
     return (
       <Wrap>
-        {this.renderInputField('ruleName', isString)}
-        {/*  <PercentageInput>
-          {this.renderInputField('percentage', isPercentage)}
-          <Typography variant="title" color="textSecondary" component="span">%</Typography>
-        </PercentageInput>*/}
-
         <RenderSelect
           label="Region"
           list={listOfRegions}
@@ -112,23 +95,44 @@ class RuleDetail extends React.PureComponent {
           value={region.value}
         />
 
-        <Autocomplete
-          onChange={this.handleChangeCompany}
-          suggestions={listOfCompanies}
-          label="Company"
-          value={company.value}
-        />
+        <Slide direction="right" mountOnEnter in={!!region.value}>
+          <React.Fragment>
+            <SectionCompany>
+              <Autocomplete
+                onChange={this.handleChangeCompany}
+                suggestions={listOfCompanies}
+                stateKey="company"
+                value={company.value}
+              />
+            </SectionCompany>
+
+            <Autocomplete
+              onChange={this.handleChangeRuleName}
+              suggestions={listOfRuleNames}
+              stateKey="ruleName"
+              value={company.value ? ` ${ruleName.value}` : ruleName.value}
+              startAdornment={company.value && this.renderPrefixRuleName()}
+              disabled={!company.value}
+            />
+          </React.Fragment>
+        </Slide>
 
         <RangeSlider
           onChange={this.handleChangePercentage}
           value={percentage.value}
+          step={5}
         />
 
         <SwitchesGroup
-          list={listOfSwitchesRuleDetail}
           onChange={this.handleChangeSwitches}
           title="SSP / DSP"
           switches={switches}
+        />
+
+        <CheckboxesGroup
+          onChange={this.handleChangeCheckboxes}
+          title="Options"
+          checkboxes={checkboxes}
         />
       </Wrap>
     )

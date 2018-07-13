@@ -1,17 +1,50 @@
 export const listOfCompanies = [
-  {label: 'Pubnative'},
-  {label: 'KIIP'},
+  {label: 'adflute'},
+  {label: 'adpublic'},
+  {label: 'adpublic_1'},
+  {label: 'aerserv'},
   {label: 'arteebee'},
-  {label: 'smartads'},
+  {label: 'bidwin'},
+  {label: 'cloud'},
+  {label: 'gismart'},
+  {label: 'gothamads'},
+  {label: 'handykanji'},
+  {label: 'kiip'},
+  {label: 'midarex'},
+  {label: 'mobfox'},
+  {label: 'mpoint'},
+  {label: 'omnijay'},
+  {label: 'pubnative'},
+  {label: 'smartyads'},
+  {label: 'unity'},
+  {label: 'vertoz'},
+  {label: 'viva'},
 ];
 
 export const listOfRuleNames = [
-  {label: 'Validation'},
-  {label: 'SSP'},
+  {label: 'Asia SSP'},
+  {label: 'Banner DSP'},
+  {label: 'Banner'},
+  {label: 'Block'},
+  {label: 'Desktop DSP'},
+  {label: 'Direct SSP'},
   {label: 'DSP'},
-  {label: 'Video'},
+  {label: 'IA DSP'},
+  {label: 'Interstitial DSP'},
+  {label: 'Mobfox DSP'},
+  {label: 'Mobfox Validation'},
+  {label: 'Mobile SSP'},
+  {label: 'MW DSP'},
   {label: 'Native Android'},
   {label: 'Native IOS'},
+  {label: 'Native SSP'},
+  {label: 'SSP'},
+  {label: 'Tag'},
+  {label: 'US SSP'},
+  {label: 'Validation'},
+  {label: 'VAST'},
+  {label: 'Video DSP'},
+  {label: 'Video'},
 ];
 
 export const listOfRegions = [
@@ -33,11 +66,6 @@ export const listOfVersion = [
   {label: 'openrtb23'},
   {label: 'openrtb24'},
   {label: 'openrtb25'},
-];
-
-export const listOfSwitchesRuleDetail = [
-  {label: 'SSP'},
-  {label: 'DSP'},
 ];
 
 export const listOfFields = [

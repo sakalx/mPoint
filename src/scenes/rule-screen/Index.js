@@ -28,7 +28,7 @@ class RuleScreen extends React.PureComponent {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="title" color="inherit" component="h1">
-              Create & Edit rules
+              Create rules
             </Typography>
           </Toolbar>
         </AppBar>

@@ -30,7 +30,12 @@ class Autocomplete extends React.PureComponent {
   };
 
   render() {
-    const {onChange = () => null, label = 'label', value = ''} = this.props;
+    const {
+      onChange = () => null,
+      startAdornment = null,
+      stateKey = '!stateKey',
+      value = '',
+    } = this.props;
     const {suggestions} = this.state;
 
     return (
@@ -48,9 +53,8 @@ class Autocomplete extends React.PureComponent {
                    getSuggestionValue={getSuggestionValue}
                    renderSuggestion={RenderSuggestion}
                    inputProps={{
-                     onChange,
-                     label,
-                     value,
+                     ...this.props,
+
                    }}
       />
     );

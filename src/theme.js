@@ -15,7 +15,7 @@ const currentTheme = {
 (() => {
   const currentHour = new Date().getHours();
 
-  if (currentHour > 7 && currentHour < 19) {
+  if (currentHour > 7 && currentHour < 23) {
     currentTheme.setTheme('light', '#fafafa');
   } else {
     currentTheme.setTheme('dark', '#303030');
