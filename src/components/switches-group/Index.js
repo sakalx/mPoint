@@ -6,7 +6,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-const SwitchesGroup = ({onChange, row, switches, title}) => {
+const SwitchesGroup = ({onChange, row=false, switches, title}) => {
   const group = Object.keys(switches);
 
   return (

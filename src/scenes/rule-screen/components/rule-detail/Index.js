@@ -11,11 +11,9 @@ import {
 
 import RenderSelect from 'root/components/select';
 import Autocomplete from 'root/components/autocomplete';
-import RangeSlider from 'root/components/range-slider';
 import SwitchesGroup from 'root/components/switches-group';
-import CheckboxesGroup from 'root/components/checkboxes-group';
 import RadioButtons from 'root/components/radio-buttons';
-
+import RenderInputNumber from 'root/components/inmut-number';
 
 import Slide from '@material-ui/core/Slide';
 
@@ -25,8 +23,6 @@ import {
   Wrap,
   RightSection,
   LeftSection,
-  Region,
-  Select,
   RuleName,
 } from './style';
 
@@ -35,7 +31,7 @@ class RuleDetail extends React.PureComponent {
     region: {value: ''},
     company: {value: ''},
     ruleName: {value: ''},
-    percentage: {value: 0},
+    percentage: {value: ''},
     switches: {
       URL: false,
       Inactive: false,
@@ -64,9 +60,9 @@ class RuleDetail extends React.PureComponent {
     this.setState({type})
   };
 
-  handleChangePercentage = (event, value) => {
+  handleChangePercentage = event => {
     this.setState({
-      percentage: {value: Number(value.toFixed(1))}
+      percentage: {value: Number(event.target.value)}
     });
   };
 
@@ -161,18 +157,19 @@ class RuleDetail extends React.PureComponent {
         </LeftSection>
 
         <RightSection>
-
-          {/* <RangeSlider
-            onChange={this.handleChangePercentage}
-            value={percentage.value}
-            step={5}
-          />*/}
-
           <SwitchesGroup
             onChange={this.handleChangeSwitch}
             row={true}
             switches={switches}
             title="Options"
+          />
+
+          <RenderInputNumber
+            label="Percentage"
+            maxValue="50"
+            onChange={this.handleChangePercentage}
+            suffix="%"
+            value={percentage.value}
           />
 
 
