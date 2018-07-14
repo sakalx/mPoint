@@ -53,14 +53,17 @@ export const listOfRegions = [
 ];
 
 export const listOfActions = [
-  {label: 'Reject'},
+  {label: 'REJECT'},
+  {label: 'ACCEPT'},
 ];
-
 
 export const listOfTypes = [
   {label: 'DSP'},
+  {label: 'PMP'},
+  {label: 'SSP'},
+  {label: 'TAG'},
+  {label: 'VAST'},
 ];
-
 
 export const listOfVersion = [
   {label: 'openrtb23'},

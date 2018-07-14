@@ -6,13 +6,13 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-const SwitchesGroup = ({title, switches, onChange}) => {
+const SwitchesGroup = ({onChange, row, switches, title}) => {
   const group = Object.keys(switches);
 
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{title}</FormLabel>
-      <FormGroup>
+      <FormGroup row={row}>
         {group.map((label, index) => (
             <FormControlLabel
               key={String(index)}
@@ -24,7 +24,7 @@ const SwitchesGroup = ({title, switches, onChange}) => {
                   color="primary"
                 />
               }
-              label={`Allowed ${label}`}
+              label={label}
             />
           )
         )}

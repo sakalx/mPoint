@@ -2,7 +2,7 @@ import React from 'react';
 
 import Autosuggest from 'react-autosuggest';
 
-import RenderInput from 'root/components/render-input';
+import RenderInput from 'root/components/input';
 import {
   getSuggestions,
   getSuggestionValue,

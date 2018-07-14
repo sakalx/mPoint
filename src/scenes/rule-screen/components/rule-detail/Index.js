@@ -1,23 +1,33 @@
 import React from 'react';
 
 import {
+  listOfActions,
   listOfCompanies,
   listOfRegions,
   listOfRuleNames,
+  listOfTypes,
+  listOfVersion,
 } from 'root/static/lists-for-select';
 
-import RenderSelect from 'root/components/render-select';
-import Autocomplete from 'root/components/render-autocomplete';
-import RangeSlider from 'root/components/render-range-slider';
-import SwitchesGroup from 'root/components/render-switches-group';
-import CheckboxesGroup from 'root/components/render-checkboxes-group';
+import RenderSelect from 'root/components/select';
+import Autocomplete from 'root/components/autocomplete';
+import RangeSlider from 'root/components/range-slider';
+import SwitchesGroup from 'root/components/switches-group';
+import CheckboxesGroup from 'root/components/checkboxes-group';
+import RadioButtons from 'root/components/radio-buttons';
+
 
 import Slide from '@material-ui/core/Slide';
 
 import {
   PrefixRuleName,
-  SectionCompany,
+  Company,
   Wrap,
+  RightSection,
+  LeftSection,
+  Region,
+  Select,
+  RuleName,
 } from './style';
 
 class RuleDetail extends React.PureComponent {
@@ -27,15 +37,15 @@ class RuleDetail extends React.PureComponent {
     ruleName: {value: ''},
     percentage: {value: 0},
     switches: {
-      SSP: false,
-      DSP: false,
-    },
-    checkboxes: {
       URL: false,
       Inactive: false,
       Impression: false,
       Test: false,
     },
+    radioButtons: {value: ''},
+    version: {value: ''},
+    action: {value: ''},
+    type: {value: ''},
   };
 
   handleChangeRegion = region => {
@@ -50,13 +60,17 @@ class RuleDetail extends React.PureComponent {
     this.setState({ruleName: {value: newValue.trimStart()}});
   };
 
+  handleChangeType = type => {
+    this.setState({type})
+  };
+
   handleChangePercentage = (event, value) => {
     this.setState({
       percentage: {value: Number(value.toFixed(1))}
     });
   };
 
-  handleChangeSwitches = label => event => {
+  handleChangeSwitch = label => event => {
     this.setState({
       switches: {
         ...this.state.switches,
@@ -65,13 +79,12 @@ class RuleDetail extends React.PureComponent {
     });
   };
 
-  handleChangeCheckboxes = label => event => {
-    this.setState({
-      checkboxes: {
-        ...this.state.checkboxes,
-        [label]: event.target.checked,
-      },
-    });
+  handleChangeAction = event => {
+    this.setState({radioButtons: {value: event.target.value}});
+  };
+
+  handleChangeVersion = event => {
+    this.setState({version: {value: event.target.value}});
   };
 
   renderPrefixRuleName = () => (
@@ -82,58 +95,88 @@ class RuleDetail extends React.PureComponent {
 
   render() {
     const {
-      company, region, percentage, switches, checkboxes, ruleName,
+      company, region, percentage, switches,
+      version, ruleName, type, radioButtons,
     } = this.state;
 
 
     return (
       <Wrap>
-        <RenderSelect
-          label="Region"
-          list={listOfRegions}
-          onChange={this.handleChangeRegion}
-          value={region.value}
-        />
+        <LeftSection>
 
-        <Slide direction="right" mountOnEnter in={!!region.value}>
-          <React.Fragment>
-            <SectionCompany>
-              <Autocomplete
-                onChange={this.handleChangeCompany}
-                suggestions={listOfCompanies}
-                stateKey="company"
-                value={company.value}
-              />
-            </SectionCompany>
-
-            <Autocomplete
-              onChange={this.handleChangeRuleName}
-              suggestions={listOfRuleNames}
-              stateKey="ruleName"
-              value={company.value ? ` ${ruleName.value}` : ruleName.value}
-              startAdornment={company.value && this.renderPrefixRuleName()}
-              disabled={!company.value}
+          <Wrap>
+            <RenderSelect
+              label="Region"
+              list={listOfRegions}
+              onChange={this.handleChangeRegion}
+              value={region.value}
             />
-          </React.Fragment>
-        </Slide>
 
-        <RangeSlider
-          onChange={this.handleChangePercentage}
-          value={percentage.value}
-          step={5}
-        />
+            <Slide direction="right" mountOnEnter in={!!region.value}>
+              <React.Fragment>
+                <Company>
+                  <Autocomplete
+                    onChange={this.handleChangeCompany}
+                    suggestions={listOfCompanies}
+                    stateKey="company"
+                    value={company.value}
+                  />
+                </Company>
 
-        <SwitchesGroup
-          onChange={this.handleChangeSwitches}
-          title="SSP / DSP"
-          switches={switches}
-        />
+                <RuleName>
+                  <Autocomplete
+                    onChange={this.handleChangeRuleName}
+                    suggestions={listOfRuleNames}
+                    stateKey="ruleName"
+                    value={company.value ? ` ${ruleName.value}` : ruleName.value}
+                    startAdornment={company.value && this.renderPrefixRuleName()}
+                    disabled={!company.value}
+                  />
+                </RuleName>
+              </React.Fragment>
+            </Slide>
+          </Wrap>
+          <Wrap>
+            <RadioButtons
+              list={listOfActions}
+              onChange={this.handleChangeAction}
+              row={false}
+              title="Action"
+              value={radioButtons.value}
+            />
+            <RenderSelect
+              label="Type"
+              list={listOfTypes}
+              onChange={this.handleChangeType}
+              value={type.value}
+            />
+            <RadioButtons
+              list={listOfVersion}
+              onChange={this.handleChangeVersion}
+              row={true}
+              title="Version"
+              value={version.value}
+            />
+          </Wrap>
+        </LeftSection>
 
-        <CheckboxesGroup
-          onChange={this.handleChangeCheckboxes}
-          title="Options"
-          checkboxes={checkboxes}
-        />
+        <RightSection>
+
+          {/* <RangeSlider
+            onChange={this.handleChangePercentage}
+            value={percentage.value}
+            step={5}
+          />*/}
+
+          <SwitchesGroup
+            onChange={this.handleChangeSwitch}
+            row={true}
+            switches={switches}
+            title="Options"
+          />
+
+
+        </RightSection>
       </Wrap>
     )
   }
