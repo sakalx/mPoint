@@ -4,13 +4,21 @@ import CustomFormat from './CustomFormat';
 
 import TextField from '@material-ui/core/TextField';
 
-const RenderInputNumber = ({label, onChange, value, className, ...other}) => (
+const RenderInputNumber = ({
+                             className = '',
+                             error = false,
+                             label,
+                             onChange,
+                             value,
+                             ...other
+                           }) => (
   <TextField
     className={className}
-    label={label}
-    value={value}
-    onChange={onChange}
+    error={error}
     id={`input-number-${label}`}
+    label={label}
+    onChange={onChange}
+    value={value}
     InputProps={{
       inputComponent: CustomFormat,
     }}

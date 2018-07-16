@@ -18,6 +18,11 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
+import CloseIcon from '@material-ui/icons/Close';
+
 import {
   Action,
   Condition,
@@ -38,12 +43,12 @@ class RuleDetail extends React.PureComponent {
     company: {value: ''},
     ruleName: {value: ''},
     action: {value: ''},
-    type: {value: ''},
+    ruleType: {value: ''},
     percentage: {value: ''},
     content: {value: ''},
     condition: {value: ''},
     version: {value: ''},
-    showOption: false,
+    expandOption: false,
     options: {
       URL: false,
       Inactive: false,
@@ -60,8 +65,8 @@ class RuleDetail extends React.PureComponent {
     this.setState({ruleName: {value: newValue.trimStart()}});
   };
 
-  handleChangeType = type => {
-    this.setState({type})
+  handleChangeType = ruleType => {
+    this.setState({ruleType})
   };
 
   handleChangePercentage = event => {
@@ -88,8 +93,7 @@ class RuleDetail extends React.PureComponent {
   };
 
   handleShowOption = () => {
-    console.log(555555);
-    this.setState(state => ({showOption: !state.showOption}));
+    this.setState(state => ({expandOption: !state.expandOption}));
   };
 
 
@@ -107,14 +111,55 @@ class RuleDetail extends React.PureComponent {
     </PrefixRuleName>
   );
 
-  renderExpandOptionBtn = () => {
-    const {showOption} = this.state;
+  _emptyValues = () => Object.entries(this.state)
+    .filter(state =>
+      typeof state[1].value === "string"
+      && state[1].value.length === 0
+    );
+
+  _hasValue = () => Object.values(this.state)
+    .some(({value}) =>
+      typeof value === "string" && value.length > 0
+    );
+
+  _validation = () => {
+    const notValidKeys = this._emptyValues()
+      .reduce((acc, [stateKey, stateValue]) => {
+        acc[stateKey] = {...stateValue, error: true};
+        return acc
+      }, {});
+
+    this.setState({
+      ...this.state,
+      ...notValidKeys,
+    })
+  };
+
+
+  renderSaveBtn = () => {
+    const hasValue = this._hasValue();
 
     return (
-      <Tooltip title={showOption ? "Hide options" : "Show option"}>
+      <Button
+        key={'save-rule'}
+        variant="outlined"
+        color="primary"
+        onClick={this._validation}
+      >
+        {hasValue ? <SaveIcon/> : <CloseIcon/>}
+        {hasValue ? 'save' : 'cancel'}
+      </Button>
+    )
+  };
+
+  renderExpandOptionBtn = () => {
+    const {expandOption} = this.state;
+
+    return (
+      <Tooltip key={'expand-option'} title={expandOption ? "Hide options" : "Show option"}>
         <ExpandButton
           onClick={this.handleShowOption}
-          aria-expanded={showOption}
+          aria-expanded={expandOption}
           aria-label="Toggle option"
         >
           <ExpandMoreIcon/>
@@ -125,30 +170,30 @@ class RuleDetail extends React.PureComponent {
 
   render() {
     const {
+      action,
       company,
       condition,
       content,
-      percentage,
-      action,
-      ruleName,
-      showOption,
       options,
-      type,
+      percentage,
+      ruleName,
+      ruleType,
+      expandOption,
       version,
     } = this.state;
 
     return (
       <Card>
         <CardHeader
-          action={this.renderExpandOptionBtn()}
-          title="Set of rules"
+          action={[this.renderSaveBtn(), this.renderExpandOptionBtn()]}
+          title="Set of rule"
           subheader={
             company.value ? `${company.value} ${ruleName.value}` : 'New'
           }
         />
 
         <ContentCard>
-          <Collapse in={showOption} timeout="auto" unmountOnExit>
+          <Collapse in={expandOption} timeout="auto" unmountOnExit>
             <SwitchesGroup
               onChange={this.handleChangeOption}
               row={true}
@@ -160,6 +205,7 @@ class RuleDetail extends React.PureComponent {
           <LeftSection>
             <RowAlignCentre>
               <Autocomplete
+                error={company.error}
                 label="company"
                 onChange={this.handleChangeCompany}
                 suggestions={listOfCompanies}
@@ -167,6 +213,7 @@ class RuleDetail extends React.PureComponent {
               />
               <Autocomplete
                 disabled={!company.value}
+                error={ruleName.error}
                 label="ruleName"
                 onChange={this.handleChangeRuleName}
                 startAdornment={company.value && this.renderPrefixRuleName()}
@@ -174,6 +221,7 @@ class RuleDetail extends React.PureComponent {
                 value={company.value ? ` ${ruleName.value}` : ruleName.value}
               />
               <Action
+                error={action.error}
                 list={listOfActions}
                 onChange={this.handleChangeAction}
                 row={true}
@@ -181,12 +229,14 @@ class RuleDetail extends React.PureComponent {
                 value={action.value}
               />
               <RuleType
+                error={ruleType.error}
                 label="Type"
                 list={listOfTypes}
                 onChange={this.handleChangeType}
-                value={type.value}
+                value={ruleType.value}
               />
               <Percentage
+                error={percentage.error}
                 label="Percentage"
                 maxValue="50"
                 onChange={this.handleChangePercentage}
@@ -196,12 +246,14 @@ class RuleDetail extends React.PureComponent {
             </RowAlignCentre>
             <RowAlignStart>
               <Content
+                error={content.error}
                 label="content"
                 multiline={true}
                 onChange={this.handleChangeContent}
                 value={content.value}
               />
               <Condition
+                error={condition.error}
                 label="condition"
                 multiline={true}
                 onChange={this.handleChangeCondition}
@@ -212,6 +264,7 @@ class RuleDetail extends React.PureComponent {
 
           <RightSection>
             <RadioButtons
+              error={version.error}
               list={listOfVersion}
               onChange={this.handleChangeVersion}
               row={true}

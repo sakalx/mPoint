@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
 const Container = styled('div')`
-  margin: 20px 5px !important;
+  //margin: 20px 0 !important;
 `;
 
 const ContainerSmall = Container.withComponent(RenderInputNumber).extend`
@@ -40,7 +40,8 @@ export const ExpandButton = styled(IconButton)`
   transform: rotate(0deg);
   ${props => props['aria-expanded'] && `
     transform: rotate(180deg);
-  `}
+  `};
+   margin-left: 15px !important;
 `;
 
 export const LeftSection = styled('div')`
@@ -53,9 +54,15 @@ export const PrefixRuleName = styled(Typography)`
   align-items: center;
 `;
 
-export const Action = Container.withComponent(RadioButtons);
+export const Action = Container.withComponent(RadioButtons).extend`
+  margin-top: 16px !important;
+  margin-bottom: -10px !important;
+`;
 
-export const Percentage = ContainerSmall.withComponent(RenderInputNumber);
+export const Percentage = ContainerSmall.withComponent(RenderInputNumber).extend`
+  margin-top: 16px !important;
+  margin-bottom: 8px !important;
+`;
 
 export const RuleType = ContainerSmall.withComponent(RenderSelect);
 
