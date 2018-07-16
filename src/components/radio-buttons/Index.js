@@ -6,8 +6,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-const RadioButtons = ({list, onChange, row=false, title, value}) => (
-  <FormControl component="fieldset"  required>
+const RadioButtons = ({list, onChange, row=false, title, value, className}) => (
+  <FormControl component="fieldset" className={className}>
     <FormLabel component="legend">{title}</FormLabel>
     <RadioGroup
       aria-label={title}

@@ -3,49 +3,53 @@ import React from 'react';
 import {
   listOfActions,
   listOfCompanies,
-  listOfRegions,
   listOfRuleNames,
   listOfTypes,
   listOfVersion,
 } from 'root/static/lists-for-select';
 
-import RenderSelect from 'root/components/select';
 import Autocomplete from 'root/components/autocomplete';
-import SwitchesGroup from 'root/components/switches-group';
 import RadioButtons from 'root/components/radio-buttons';
-import RenderInputNumber from 'root/components/inmut-number';
+import SwitchesGroup from 'root/components/switches-group';
 
-import Slide from '@material-ui/core/Slide';
+import Tooltip from '@material-ui/core/Tooltip';
+import Collapse from '@material-ui/core/Collapse';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import {
-  PrefixRuleName,
-  Company,
-  Wrap,
-  RightSection,
+  Action,
+  Condition,
+  Content,
+  ContentCard,
+  ExpandButton,
   LeftSection,
-  RuleName,
+  Percentage,
+  PrefixRuleName,
+  RightSection,
+  RowAlignCentre,
+  RowAlignStart,
+  RuleType,
 } from './style';
 
 class RuleDetail extends React.PureComponent {
   state = {
-    region: {value: ''},
     company: {value: ''},
     ruleName: {value: ''},
+    action: {value: ''},
+    type: {value: ''},
     percentage: {value: ''},
-    switches: {
+    content: {value: ''},
+    condition: {value: ''},
+    version: {value: ''},
+    showOption: false,
+    options: {
       URL: false,
       Inactive: false,
       Impression: false,
       Test: false,
     },
-    radioButtons: {value: ''},
-    version: {value: ''},
-    action: {value: ''},
-    type: {value: ''},
-  };
-
-  handleChangeRegion = region => {
-    this.setState({region})
   };
 
   handleChangeCompany = (event, {newValue}) => {
@@ -66,21 +70,35 @@ class RuleDetail extends React.PureComponent {
     });
   };
 
-  handleChangeSwitch = label => event => {
+  handleChangeOption = label => event => {
     this.setState({
-      switches: {
-        ...this.state.switches,
+      options: {
+        ...this.state.options,
         [label]: event.target.checked,
       },
     });
   };
 
   handleChangeAction = event => {
-    this.setState({radioButtons: {value: event.target.value}});
+    this.setState({action: {value: event.target.value}});
   };
 
   handleChangeVersion = event => {
     this.setState({version: {value: event.target.value}});
+  };
+
+  handleShowOption = () => {
+    console.log(555555);
+    this.setState(state => ({showOption: !state.showOption}));
+  };
+
+
+  handleChangeContent = event => {
+    this.setState({content: {value: event.target.value}});
+  };
+
+  handleChangeCondition = event => {
+    this.setState({condition: {value: event.target.value}});
   };
 
   renderPrefixRuleName = () => (
@@ -89,63 +107,110 @@ class RuleDetail extends React.PureComponent {
     </PrefixRuleName>
   );
 
-  render() {
-    const {
-      company, region, percentage, switches,
-      version, ruleName, type, radioButtons,
-    } = this.state;
-
+  renderExpandOptionBtn = () => {
+    const {showOption} = this.state;
 
     return (
-      <Wrap>
-        <LeftSection>
+      <Tooltip title={showOption ? "Hide options" : "Show option"}>
+        <ExpandButton
+          onClick={this.handleShowOption}
+          aria-expanded={showOption}
+          aria-label="Toggle option"
+        >
+          <ExpandMoreIcon/>
+        </ExpandButton>
+      </Tooltip>
+    )
+  };
 
-          <Wrap>
-            <RenderSelect
-              label="Region"
-              list={listOfRegions}
-              onChange={this.handleChangeRegion}
-              value={region.value}
-            />
+  render() {
+    const {
+      company,
+      condition,
+      content,
+      percentage,
+      action,
+      ruleName,
+      showOption,
+      options,
+      type,
+      version,
+    } = this.state;
 
-            <Slide direction="right" mountOnEnter in={!!region.value}>
-              <React.Fragment>
-                <Company>
-                  <Autocomplete
-                    onChange={this.handleChangeCompany}
-                    suggestions={listOfCompanies}
-                    stateKey="company"
-                    value={company.value}
-                  />
-                </Company>
+    return (
+      <Card>
+        <CardHeader
+          action={this.renderExpandOptionBtn()}
+          title="Set of rules"
+          subheader={
+            company.value ? `${company.value} ${ruleName.value}` : 'New'
+          }
+        />
 
-                <RuleName>
-                  <Autocomplete
-                    onChange={this.handleChangeRuleName}
-                    suggestions={listOfRuleNames}
-                    stateKey="ruleName"
-                    value={company.value ? ` ${ruleName.value}` : ruleName.value}
-                    startAdornment={company.value && this.renderPrefixRuleName()}
-                    disabled={!company.value}
-                  />
-                </RuleName>
-              </React.Fragment>
-            </Slide>
-          </Wrap>
-          <Wrap>
-            <RadioButtons
-              list={listOfActions}
-              onChange={this.handleChangeAction}
-              row={false}
-              title="Action"
-              value={radioButtons.value}
+        <ContentCard>
+          <Collapse in={showOption} timeout="auto" unmountOnExit>
+            <SwitchesGroup
+              onChange={this.handleChangeOption}
+              row={true}
+              switches={options}
+              title="Options"
             />
-            <RenderSelect
-              label="Type"
-              list={listOfTypes}
-              onChange={this.handleChangeType}
-              value={type.value}
-            />
+          </Collapse>
+
+          <LeftSection>
+            <RowAlignCentre>
+              <Autocomplete
+                label="company"
+                onChange={this.handleChangeCompany}
+                suggestions={listOfCompanies}
+                value={company.value}
+              />
+              <Autocomplete
+                disabled={!company.value}
+                label="ruleName"
+                onChange={this.handleChangeRuleName}
+                startAdornment={company.value && this.renderPrefixRuleName()}
+                suggestions={listOfRuleNames}
+                value={company.value ? ` ${ruleName.value}` : ruleName.value}
+              />
+              <Action
+                list={listOfActions}
+                onChange={this.handleChangeAction}
+                row={true}
+                title="Action"
+                value={action.value}
+              />
+              <RuleType
+                label="Type"
+                list={listOfTypes}
+                onChange={this.handleChangeType}
+                value={type.value}
+              />
+              <Percentage
+                label="Percentage"
+                maxValue="50"
+                onChange={this.handleChangePercentage}
+                suffix="%"
+                value={percentage.value}
+              />
+            </RowAlignCentre>
+            <RowAlignStart>
+              <Content
+                label="content"
+                multiline={true}
+                onChange={this.handleChangeContent}
+                value={content.value}
+              />
+              <Condition
+                label="condition"
+                multiline={true}
+                onChange={this.handleChangeCondition}
+                value={condition.value}
+              />
+            </RowAlignStart>
+          </LeftSection>
+
+          <RightSection>
             <RadioButtons
               list={listOfVersion}
               onChange={this.handleChangeVersion}
@@ -153,28 +218,9 @@ class RuleDetail extends React.PureComponent {
               title="Version"
               value={version.value}
             />
-          </Wrap>
-        </LeftSection>
-
-        <RightSection>
-          <SwitchesGroup
-            onChange={this.handleChangeSwitch}
-            row={true}
-            switches={switches}
-            title="Options"
-          />
-
-          <RenderInputNumber
-            label="Percentage"
-            maxValue="50"
-            onChange={this.handleChangePercentage}
-            suffix="%"
-            value={percentage.value}
-          />
-
-
-        </RightSection>
-      </Wrap>
+          </RightSection>
+        </ContentCard>
+      </Card>
     )
   }
 }

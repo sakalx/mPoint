@@ -2,6 +2,9 @@ import React from 'react';
 
 import RuleScreen from 'root/scenes/rule-screen';
 
+import RuleDetail from 'root/scenes/rule-screen/components/rule-detail';
+
+
 class App extends React.PureComponent {
   state = {};
 
@@ -9,7 +12,7 @@ class App extends React.PureComponent {
 
     return (
       <React.Fragment>
-        <RuleScreen/>
+        <RuleDetail/>
       </React.Fragment>
     )
   }
