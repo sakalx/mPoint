@@ -24,6 +24,7 @@ const Row = styled('div')`
 
 export const WrapCard = styled(Card)`
   margin: 15px;
+  overflow: visible !important;
 `;
 
 export const RowAlignCentre = Row.extend`
