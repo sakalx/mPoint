@@ -6,7 +6,7 @@ import {
   listOfRuleNames,
   listOfTypes,
   listOfVersion,
-} from 'root/static/lists-fake-data';
+} from 'root/static/lists';
 
 import Autocomplete from 'root/components/autocomplete';
 import RadioButtons from 'root/components/radio-buttons';
@@ -39,9 +39,10 @@ import {
   RowAlignCentre,
   RowAlignStart,
   RuleType,
+  WrapCard,
 } from './style';
 
-class RuleDetail extends React.PureComponent {
+class Rule extends React.PureComponent {
   state = {
     company: {value: ''},
     ruleName: {value: ''},
@@ -185,7 +186,7 @@ class RuleDetail extends React.PureComponent {
     } = this.state;
 
     return (
-      <Card>
+      <WrapCard elevation={15}>
         <CardHeader
           action={[this.renderSaveBtn(), this.renderExpandOptionBtn()]}
           title="Set of rule"
@@ -193,7 +194,6 @@ class RuleDetail extends React.PureComponent {
             company.value ? `${company.value} ${ruleName.value}` : 'New'
           }
         />
-
         <ContentCard>
           <Collapse in={expandOption} timeout="auto" unmountOnExit>
             <SwitchesGroup
@@ -289,10 +289,11 @@ class RuleDetail extends React.PureComponent {
             </AddRule>
           </Tooltip>
         </AddButtonWrap>
+
         <RuleList ref={addRule => this.ruleList = addRule}/>
-      </Card>
+      </WrapCard>
     )
   }
 }
 
-export default RuleDetail;
+export default Rule;

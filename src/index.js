@@ -12,6 +12,7 @@ import ErrorBoundary from 'root/components/error-boundary';
 ReactDOM.render(
   <React.Fragment>
     <CssBaseline/>
+
     <ErrorBoundary>
       <MuiThemeProvider theme={muiTheme}>
         <App/>

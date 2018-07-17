@@ -1,43 +1,51 @@
 import React from 'react';
 
-import {listOfFields, listOfOperators} from 'root/static/lists-fake-data';
+import {listOfFields, listOfOperators} from 'root/static/lists';
 
 import uuidv4 from 'root/helpers/uuidv4';
 
-import PaginationActions from './pagination-actions';
 import Autocomplete from 'root/components/autocomplete';
-import RenderSelect from 'root/components/select';
+import EnhancedHead from './enhanced-head';
+import PaginationActions from './pagination-actions';
+import RenderInput from 'root/components/input';
 
+import Button from '@material-ui/core/Button';
 import Collapse from '@material-ui/core/Collapse';
 import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
 import Slide from '@material-ui/core/Slide';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
-import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
+import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 import {
-  Head,
+  Cell,
+  EmptySpace,
   RowTable,
+  SelectOperator,
   Wrap,
 } from './style';
 
 class RuleList extends React.Component {
   state = {
-    rules: [{id: "11-ds", field: "app.bundlee", operator: "gte", value: "usa"}],
+    order: 'asc',
+    orderBy: 'operator',
+    rules: [],
     page: 0,
     rowsPerPage: 5,
+    error: false,
   };
 
   handleAddRule = () => {
     const {rules} = this.state;
+    const notFinishedRule = rules.some(rule =>
+      Object.values(rule).some(value => !value)
+    );
+
     const newRule = {
       id: uuidv4(),
       field: '',
@@ -45,7 +53,24 @@ class RuleList extends React.Component {
       value: '',
     };
 
-    this.setState({rules: [newRule, ...rules]});
+    notFinishedRule
+      ? this.setState({error: true})
+      : this.setState({
+        rules: [newRule, ...rules],
+        orderBy: '',
+        error: false,
+      });
+  };
+
+  handleRequestSort = (event, property) => {
+    const orderBy = property;
+    let order = 'desc';
+
+    if (this.state.orderBy === property && this.state.order === 'desc') {
+      order = 'asc';
+    }
+
+    this.setState({order, orderBy});
   };
 
   handleChangeField = (id, {newValue}) => {
@@ -80,81 +105,84 @@ class RuleList extends React.Component {
   );
 
   render() {
-    const {rules, rowsPerPage, page} = this.state;
+    const {rules, order, orderBy, rowsPerPage, page, error} = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rules.length - page * rowsPerPage);
 
     return (
       <Collapse in={!!rules.length} timeout={{enter: 800}} mountOnEnter unmountOnExit>
         <Wrap>
+          <Toolbar>
+            <Typography color={error ? "error" : "default"} variant="title">
+              {error ? "Need to finish previous rule" : "Rules"}
+            </Typography>
+          </Toolbar>
           <Table>
-            <Head>
-              <TableRow>
-                <TableCell>UID</TableCell>
-                <TableCell>Field</TableCell>
-                <TableCell>Operator</TableCell>
-                <TableCell>Value</TableCell>
-                <TableCell/>
-              </TableRow>
-            </Head>
+            <EnhancedHead
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={this.handleRequestSort}
+            />
             <TableBody>
-              {rules.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(rule => {
-                return (
-                  <RowTable key={rule.id}>
-                    <Slide in={true} direction="left" mountOnEnter>
-                      <TableCell scope="row">
-                        <Typography variant="subheading" color="textSecondary">
-                          {rule.id}
-                        </Typography>
-                      </TableCell>
-                    </Slide>
-                    <TableCell style={{position: 'relative'}}>
-                      <Autocomplete
-                        label="request"
-                        onChange={(event, obj) => this.handleChangeField(rule.id, obj, event)}
-                        placeholder="Field"
-                        suggestions={listOfFields}
-                        value={rule.field}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <RenderSelect
-                        list={listOfOperators}
-                        onChange={obj => this.handleChangeOperator(rule.id, obj)}
-                        value={rule.operator}
-                        placeholder="Operator"
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <TextField
-                        onChange={this.handleChangeValue(rule.id)}
-                        value={rule.value}
-                        placeholder="Value"
-                      />
-                    </TableCell>
-                    <TableCell numeric>
-                      <Tooltip title="Remove rule" placement="left">
-                        <IconButton
+              {rules
+                .sort(getSorting(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map(rule => (
+                    <RowTable key={rule.id} error={error.toString()} hover>
+                      <Slide in={true} direction="left" mountOnEnter>
+                        <Cell scope="row" style>
+                          <Typography variant="subheading" color="textSecondary">
+                            {rule.id}
+                          </Typography>
+                        </Cell>
+                      </Slide>
+                      <Cell>
+                        <Autocomplete
+                          label="request"
+                          onChange={(event, obj) => this.handleChangeField(rule.id, obj, event)}
+                          placeholder="Field"
+                          suggestions={listOfFields}
+                          value={rule.field}
+                        />
+                      </Cell>
+                      <Cell>
+                        <SelectOperator
+                          label="operator"
+                          list={listOfOperators}
+                          onChange={obj => this.handleChangeOperator(rule.id, obj)}
+                          value={rule.operator}
+                        />
+                      </Cell>
+                      <Cell>
+                        <RenderInput
+                          label="value"
+                          onChange={this.handleChangeValue(rule.id)}
+                          value={rule.value}
+                        />
+                      </Cell>
+                      <TableCell>
+                        <Button
                           aria-label="Delete-on-of-rule"
                           color="secondary"
                           onClick={() => this.handleRemoveRule(rule.id)}
+                          size="small"
                         >
                           <DeleteIcon/>
-                        </IconButton>
-                      </Tooltip>
-                    </TableCell>
-                  </RowTable>
-                );
-              })}
+                          Delete
+                        </Button>
+                      </TableCell>
+                    </RowTable>
+                  )
+                )}
               {emptyRows > 0 && (
-                <TableRow style={{height: 48 * emptyRows}}>
-                  <TableCell colSpan={6}/>
-                </TableRow>
+                <EmptySpace empty-rows={emptyRows}>
+                  <TableCell colSpan={5}/>
+                </EmptySpace>
               )}
             </TableBody>
             <TableFooter>
               <TableRow>
                 <TablePagination
-                  colSpan={3}
+                  colSpan={5}
                   count={rules.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
@@ -171,5 +199,12 @@ class RuleList extends React.Component {
   }
 }
 
+function getSorting(order, orderBy) {
+  if (orderBy) {
+    return order === 'desc'
+      ? (a, b) => (b[orderBy] < a[orderBy] ? -1 : 1)
+      : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1);
+  }
+}
 
 export default RuleList;

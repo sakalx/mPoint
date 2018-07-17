@@ -1,19 +1,11 @@
 import React from 'react';
 
-import RuleDetail from 'root/scenes/rule-detail';
+import Rule from 'root/scenes/rule';
 
-
-class App extends React.PureComponent {
-  state = {};
-
-  render() {
-
-    return (
-      <React.Fragment>
-        <RuleDetail/>
-      </React.Fragment>
-    )
-  }
-}
+const App = () => (
+  <React.Fragment>
+    <Rule/>
+  </React.Fragment>
+);
 
 export default App;

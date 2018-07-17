@@ -4,6 +4,7 @@ import RadioButtons from 'root/components/radio-buttons';
 import RenderInput from 'root/components/input';
 import RenderInputNumber from 'root/components/inmut-number';
 import RenderSelect from 'root/components/select';
+import Card from '@material-ui/core/Card';
 
 
 import Button from '@material-ui/core/Button';
@@ -19,6 +20,10 @@ const Row = styled('div')`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
+`;
+
+export const WrapCard = styled(Card)`
+  margin: 15px;
 `;
 
 export const RowAlignCentre = Row.extend`
@@ -86,5 +91,5 @@ export const AddButtonWrap = styled('div')`
 export const AddRule = styled(Button)`
   position: absolute !important;
   right: 24px;
-  bottom: 0;
+  bottom: 5px;
 `;
