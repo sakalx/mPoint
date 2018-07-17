@@ -71,15 +71,48 @@ export const listOfVersion = [
   {label: 'openrtb25'},
 ];
 
+export const fakeRules = [
+  {id: '11-33', field: 'app.bundle2', operator: 'gte', value: 'usa'},
+  {id: '11-22', field: 'app.bundle3', operator: 'gte', value: 'usa'},
+  {id: '11-12', field: 'app.bundle4', operator: 'gte', value: 'usa'},
+  {id: '11-24', field: 'app.bundle5', operator: 'gte', value: 'usa'},
+  {id: '11-ds', field: 'app.bundlee', operator: 'gte', value: 'usa'},
+  {id: '11-sd', field: 'app.bundlef', operator: 'gte', value: 'usa'},
+  {id: '11-we', field: 'app.bundlef', operator: 'gte', value: 'usa'},
+  {id: '11-ff', field: 'app.bundlec', operator: 'gte', value: 'usa'},
+  {id: 'da-22', field: 'app.bundlev', operator: 'gte', value: 'usa'},
+  {id: 'aw-22', field: 'app.bundlef', operator: 'gte', value: 'usa'},
+  {id: 'qw-22', field: 'app.bu3ndle5', operator: 'gte', value: 'usa'},
+  {id: 'wq-22', field: 'app.burfndle', operator: 'gte', value: 'usa'},
+  {id: 'ds-22', field: 'app.bunffewdle', operator: 'gte', value: 'usa'},
+  {id: 'i7-22', field: 'app.bunfwefdle', operator: 'gte', value: 'usa'},
+  {id: 'iy-22', field: 'app.bunfwdle', operator: 'gte', value: 'usa'},
+  {id: '7y-22', field: 'app.bund x le', operator: 'gte', value: 'usa'},
+  {id: 'uy-22', field: 'app.bu43ndle', operator: 'gte', value: 'usa'},
+  {id: 'iu-22', field: 'app.buvdrndle', operator: 'gte', value: 'usa'},
+  {id: '32-22', field: 'app.bun34fdle', operator: 'gte', value: 'usa'},
+  {id: '54-22', field: 'app.bungerdle', operator: 'gte', value: 'usa'},
+];
+
 export const listOfFields = [
-  // {value: 'Not Application'},
+  {label: 'app.bundle'},
+  {label: 'device.geo.country'},
+  {label: 'device.os'},
+  {label: 'device.ua'},
+  {label: 'id'},
+  {label: 'imp'},
+  {label: 'imp.banner'},
+  {label: 'imp.bidfloor'},
+  {label: 'imp.native'},
+  {label: 'imp.video'},
+  {label: 'tmax'},
 ];
 
 export const listOfOperators = [
   {label: 'equal'},
   {label: 'not equal'},
-  {label: 'gt'},
-  {label: 'gte'},
+  {label: 'gt'},// ???
+  {label: 'gte'},// ???
   {label: 'It'}, // ???
   {label: 'Ite'}, // ???
   {label: 'in'},
@@ -91,9 +124,4 @@ export const listOfOperators = [
   {label: 'contain'},
   {label: 'not contain'},
   {label: 'length'},
-];
-
-export const listOfValues = [
-  {value: 'N/A'},
-  {value: 'Android'},
 ];

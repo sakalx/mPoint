@@ -5,14 +5,12 @@ import RenderInput from 'root/components/input';
 import RenderInputNumber from 'root/components/inmut-number';
 import RenderSelect from 'root/components/select';
 
+
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
-const Container = styled('div')`
-  //margin: 20px 0 !important;
-`;
-
-const ContainerSmall = Container.withComponent(RenderInputNumber).extend`
+const ContainerSmall = styled('div')`
   width: 90px;
 `;
 
@@ -23,16 +21,16 @@ const Row = styled('div')`
   width: 100%;
 `;
 
-export const RowAlignCentre = Container.withComponent(Row).extend`
+export const RowAlignCentre = Row.extend`
   align-items: center;
 `;
 
-export const RowAlignStart = Container.withComponent(Row).extend`
+export const RowAlignStart = Row.extend`
   align-items: flex-start;
 `;
 
-export const ContentCard = Container.withComponent(Row).extend`
-  padding: 0 24px;
+export const ContentCard = Row.extend`
+  padding: 0 24px 15px;
 `;
 
 export const ExpandButton = styled(IconButton)`
@@ -54,7 +52,7 @@ export const PrefixRuleName = styled(Typography)`
   align-items: center;
 `;
 
-export const Action = Container.withComponent(RadioButtons).extend`
+export const Action = styled(RadioButtons)`
   margin-top: 16px !important;
   margin-bottom: -10px !important;
 `;
@@ -69,7 +67,7 @@ export const RuleType = ContainerSmall.withComponent(RenderSelect);
 export const RightSection = styled('div')`
   flex: 1 1 0;
   padding-left: 5%;
-  padding-top: 20px;
+  padding-top: 15px;
 `;
 
 export const Content = styled(RenderInput)`
@@ -79,4 +77,14 @@ export const Content = styled(RenderInput)`
 
 export const Condition = styled(RenderInput)`
   flex: 1 1 auto;
+`;
+
+export const AddButtonWrap = styled('div')`
+  position: relative;
+`;
+
+export const AddRule = styled(Button)`
+  position: absolute !important;
+  right: 24px;
+  bottom: 0;
 `;

@@ -6,25 +6,28 @@ import {
   listOfRuleNames,
   listOfTypes,
   listOfVersion,
-} from 'root/static/lists-for-select';
+} from 'root/static/lists-fake-data';
 
 import Autocomplete from 'root/components/autocomplete';
 import RadioButtons from 'root/components/radio-buttons';
 import SwitchesGroup from 'root/components/switches-group';
 
-import Tooltip from '@material-ui/core/Tooltip';
-import Collapse from '@material-ui/core/Collapse';
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-
-import Button from '@material-ui/core/Button';
-import SaveIcon from '@material-ui/icons/Save';
 import CloseIcon from '@material-ui/icons/Close';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SaveIcon from '@material-ui/icons/Save';
+import Tooltip from '@material-ui/core/Tooltip';
+
+import RuleList from 'root/scenes/rule-list/Index';
 
 import {
   Action,
+  AddButtonWrap,
+  AddRule,
   Condition,
   Content,
   ContentCard,
@@ -111,31 +114,6 @@ class RuleDetail extends React.PureComponent {
     </PrefixRuleName>
   );
 
-  _emptyValues = () => Object.entries(this.state)
-    .filter(state =>
-      typeof state[1].value === "string"
-      && state[1].value.length === 0
-    );
-
-  _hasValue = () => Object.values(this.state)
-    .some(({value}) =>
-      typeof value === "string" && value.length > 0
-    );
-
-  _validation = () => {
-    const notValidKeys = this._emptyValues()
-      .reduce((acc, [stateKey, stateValue]) => {
-        acc[stateKey] = {...stateValue, error: true};
-        return acc
-      }, {});
-
-    this.setState({
-      ...this.state,
-      ...notValidKeys,
-    })
-  };
-
-
   renderSaveBtn = () => {
     const hasValue = this._hasValue();
 
@@ -166,6 +144,30 @@ class RuleDetail extends React.PureComponent {
         </ExpandButton>
       </Tooltip>
     )
+  };
+
+  _emptyValues = () => Object.entries(this.state)
+    .filter(state =>
+      typeof state[1].value === "string"
+      && state[1].value.length === 0
+    );
+
+  _hasValue = () => Object.values(this.state)
+    .some(({value}) =>
+      typeof value === "string" && value.length > 0
+    );
+
+  _validation = () => {
+    const notValidKeys = this._emptyValues()
+      .reduce((acc, [stateKey, stateValue]) => {
+        acc[stateKey] = {...stateValue, error: true};
+        return acc
+      }, {});
+
+    this.setState({
+      ...this.state,
+      ...notValidKeys,
+    })
   };
 
   render() {
@@ -273,6 +275,21 @@ class RuleDetail extends React.PureComponent {
             />
           </RightSection>
         </ContentCard>
+
+        <AddButtonWrap>
+          <Tooltip title="Add rule" placement="left">
+            <AddRule
+              aria-label="Add-rule"
+              color="primary"
+              mini={true}
+              onClick={() => this.ruleList.handleAddRule()}
+              variant="fab"
+            >
+              <AddIcon/>
+            </AddRule>
+          </Tooltip>
+        </AddButtonWrap>
+        <RuleList ref={addRule => this.ruleList = addRule}/>
       </Card>
     )
   }

@@ -1,8 +1,6 @@
 import React from 'react';
 
-import RuleScreen from 'root/scenes/rule-screen';
-
-import RuleDetail from 'root/scenes/rule-screen/components/rule-detail';
+import RuleDetail from 'root/scenes/rule-detail';
 
 
 class App extends React.PureComponent {
