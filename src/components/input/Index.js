@@ -15,4 +15,4 @@ const RenderInput = ({ref, label=false, className = '', ...other}) => (
     }}
   />);
 
-export default RenderInput
+export default RenderInput;

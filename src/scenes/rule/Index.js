@@ -12,6 +12,8 @@ import Autocomplete from 'root/components/autocomplete';
 import RadioButtons from 'root/components/radio-buttons';
 import SwitchesGroup from 'root/components/switches-group';
 
+import RuleList from 'root/scenes/rule-list/Index';
+
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -22,7 +24,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SaveIcon from '@material-ui/icons/Save';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import RuleList from 'root/scenes/rule-list/Index';
 
 import {
   Action,

@@ -102,3 +102,53 @@ export const listOfOperators = [
   {label: 'not contain'},
   {label: 'length'},
 ];
+
+// Panels
+export const listOfLanguage = [
+  {label: 'English (United States)'},
+  {label: 'option1'},
+  {label: 'option2'},
+  {label: 'option3'},
+];
+
+export const listOfUserType = [
+  {label: 'Agent'},
+  {label: 'option1'},
+  {label: 'option2'},
+  {label: 'option3'},
+];
+
+export const listOfAdType = [
+  {label: 'Banner'},
+  {label: 'option1'},
+  {label: 'option2'},
+  {label: 'option3'},
+];
+
+export const listOfKeyWords = [
+  {label: 'Auto'},
+  {label: 'option1'},
+  {label: 'option2'},
+  {label: 'option3'},
+];
+
+export const listOfCampaingType = [
+  {label: 'Video'},
+  {label: 'option1'},
+  {label: 'option2'},
+  {label: 'option3'},
+];
+
+export const listOfNetworks = [
+  {label: 'English (United States)'},
+  {label: 'option1'},
+  {label: 'option2'},
+  {label: 'option3'},
+];
+
+export const listOfGroupType = [
+  {label: 'Big'},
+  {label: 'option1'},
+  {label: 'option2'},
+  {label: 'option3'},
+];
