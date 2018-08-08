@@ -10,6 +10,7 @@ import {
   Content,
   Input,
   SaveButton,
+  SaveIcon,
   Select,
   Wrap,
 } from './style';
@@ -62,7 +63,7 @@ class User extends React.Component {
     );
 
     !isError &&
-    this.props.handleSetUserName(`${firstName.value} ${lastName.value}`);
+    this.props.setUserSummary({userName: `${firstName.value} ${lastName.value}`});
   };
 
   _setError = prop => {
@@ -125,11 +126,8 @@ class User extends React.Component {
         </Content>
         <Zoom in={showSaveButton}>
           <SaveButton>
-            <Button
-              variant="outlined"
-              color='primary'
-              onClick={this.handleSave}
-            >
+            <Button color='primary' onClick={this.handleSave} variant='outlined'>
+              <SaveIcon/>
               Save
             </Button>
           </SaveButton>

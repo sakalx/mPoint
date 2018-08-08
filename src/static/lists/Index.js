@@ -132,6 +132,19 @@ export const listOfKeyWords = [
   {label: 'option3'},
 ];
 
+
+export const listOfCampaign = [
+  {label: 'Campaign 1'},
+  {label: 'Campaign 2'},
+  {label: 'Campaign 3'},
+  {label: 'Campaign 4'},
+  {label: 'Campaign 5'},
+];
+
+export const dummy = [
+  {label: ''},
+];
+
 export const listOfCampaingType = [
   {label: 'Video'},
   {label: 'option1'},
@@ -140,7 +153,7 @@ export const listOfCampaingType = [
 ];
 
 export const listOfNetworks = [
-  {label: 'English (United States)'},
+  {label: 'Channel China'},
   {label: 'option1'},
   {label: 'option2'},
   {label: 'option3'},

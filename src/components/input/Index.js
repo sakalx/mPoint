@@ -4,9 +4,16 @@ import {camelCaseToString} from 'root/helpers/camel-case';
 
 import {InputField} from './style';
 
-const RenderInput = ({ref, label=false, className = '', ...other}) => (
+const RenderInput = ({
+                       className = '',
+                       helperText='',
+                       label=false,
+                       ref,
+                       ...other
+}) => (
   <InputField
     className={className}
+    helperText={helperText}
     label={label && camelCaseToString(label)}
     margin="normal"
     InputProps={{

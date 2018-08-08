@@ -20,8 +20,9 @@ import {
 
 class Panels extends React.Component {
   state = {
-    expanded: 'user',
+    expanded: 'campaign',
     userName: '',
+    campaignName: '',
   };
 
   handleChangePanel = panel => (event, expanded) => {
@@ -30,12 +31,12 @@ class Panels extends React.Component {
     });
   };
 
-  handleSetUserName = userName => {
-    this.setState({userName})
+  handleSetSummary = name => {
+    this.setState({expanded: null, ...name})
   };
 
   render() {
-    const {expanded, userName} = this.state;
+    const {expanded, userName, campaignName} = this.state;
 
     return (
       <Wrap>
@@ -50,16 +51,14 @@ class Panels extends React.Component {
                 User
               </Typography>
               <Fade in={!!userName} timeout={2000}>
-                <Typography component='h3' variant='headline'>
+                <Typography color='textSecondary' component='h3' variant='title'>
                   {userName}
                 </Typography>
               </Fade>
             </Summary>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <User handleSetUserName={userName =>
-              this.setState({expanded: null, userName})}
-            />
+            <User setUserSummary={this.handleSetSummary}/>
           </ExpansionPanelDetails>
         </ExpansionPanel>
 
@@ -69,13 +68,20 @@ class Panels extends React.Component {
           onChange={this.handleChangePanel('campaign')}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-            <Typography>Campaign manager</Typography>
-            <Typography>
-              selected campaign name
-            </Typography>
+            <Summary>
+              <Typography color='primary' variant='button'>
+                Campaign manager
+              </Typography>
+              <Fade in={!!campaignName} timeout={2000}>
+                <Typography color='textSecondary' component='h3' variant='title'>
+                  {campaignName}
+                </Typography>
+              </Fade>
+            </Summary>
+
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <Campaign/>
+            <Campaign setCampaignSummary={this.handleSetSummary}/>
           </ExpansionPanelDetails>
         </ExpansionPanel>
 
