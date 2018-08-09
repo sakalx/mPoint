@@ -33,13 +33,3 @@ export const Select = styled(RenderSelect)`
   ${_margin};
   ${_widthField};
 `;
-
-export const SaveButton = styled('div')`
-  text-align: right;
-  ${_margin};
-`;
-
-export const SaveIcon = styled(SaveIc)`
-  margin-right: 15px;
-  font-size: 20px !important;
-`;

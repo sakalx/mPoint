@@ -6,25 +6,32 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-const SwitchesGroup = ({onChange, row=false, switches, title}) => {
+const SwitchesGroup = ({
+                         className = '',
+                         label,
+                         onChange,
+                         row = false,
+                         switches,
+                         title,
+}) => {
   const group = Object.keys(switches);
 
   return (
-    <FormControl component="fieldset">
+    <FormControl component="fieldset" className={className}>
       <FormLabel component="legend">{title}</FormLabel>
       <FormGroup row={row}>
-        {group.map((label, index) => (
+        {group.map((key, index) => (
             <FormControlLabel
               key={String(index)}
               control={
                 <Switch
-                  checked={switches[label]}
-                  onChange={onChange(label)}
-                  value={label}
+                  checked={switches[key]}
+                  onChange={onChange(key)}
+                  value={key}
                   color="primary"
                 />
               }
-              label={label}
+              label={label || key}
             />
           )
         )}

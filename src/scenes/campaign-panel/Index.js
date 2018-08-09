@@ -11,9 +11,9 @@ import {
   Wrap,
 } from './style';
 
-class Campaign extends React.Component {
+class Campaign extends React.PureComponent {
   state = {
-    value: 0,
+    value: 1,
   };
 
   handleChangeTab = (event, value) => {

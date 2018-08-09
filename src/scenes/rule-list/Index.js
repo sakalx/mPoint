@@ -30,7 +30,7 @@ import {
   Wrap,
 } from './style';
 
-class RuleList extends React.Component {
+class RuleList extends React.PureComponent {
   state = {
     order: 'asc',
     orderBy: 'operator',

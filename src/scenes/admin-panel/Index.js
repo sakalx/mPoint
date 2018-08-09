@@ -4,7 +4,7 @@ import {
 
 } from './style';
 
-class Admin extends React.Component {
+class Admin extends React.PureComponent {
 
   render() {
       return (

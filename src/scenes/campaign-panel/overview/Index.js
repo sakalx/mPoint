@@ -1,21 +1,18 @@
 import React from 'react';
-import {isEmail} from "root/helpers/validator";
 
-import {SaveButton} from "root/scenes/user-panel/style";
+
 import {listOfCampaign} from 'root/static/lists';
 
-import Button from '@material-ui/core/Button';
-import Zoom from '@material-ui/core/Zoom';
+import SaveButton from 'root/components/save-button';
 
 import {
-  SaveIcon,
+  NewCampaign,
+  Overview,
   Search,
   Wrap,
-  Overview,
-  NewCampaign,
 } from './style';
 
-class CampaignOverview extends React.Component {
+class CampaignOverview extends React.PureComponent {
   state = {
     searchCampaign: {
       error: false,
@@ -124,15 +121,7 @@ class CampaignOverview extends React.Component {
             value={overview.value}
           />
         </Wrap>
-
-        <Zoom in={!!showSaveButton}>
-          <SaveButton>
-            <Button color='primary' onClick={this.handleSave} variant='outlined'>
-              <SaveIcon/>
-              Save
-            </Button>
-          </SaveButton>
-        </Zoom>
+        <SaveButton callBack={this.handleSave} visible={showSaveButton}/>
       </div>
     )
   }

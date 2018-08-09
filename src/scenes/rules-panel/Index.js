@@ -4,7 +4,7 @@ import {
 
 } from './style';
 
-class Rules extends React.Component {
+class Rules extends React.PureComponent {
 
   render() {
       return (

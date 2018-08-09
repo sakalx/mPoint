@@ -145,14 +145,14 @@ export const dummy = [
   {label: ''},
 ];
 
-export const listOfCampaingType = [
+export const listOfCampaignType = [
   {label: 'Video'},
   {label: 'option1'},
   {label: 'option2'},
   {label: 'option3'},
 ];
 
-export const listOfNetworks = [
+export const listOfCampaignNet = [
   {label: 'Channel China'},
   {label: 'option1'},
   {label: 'option2'},

@@ -4,7 +4,7 @@ import {
 
 } from './style';
 
-class Ad extends React.Component {
+class Ad extends React.PureComponent {
 
   render() {
       return (

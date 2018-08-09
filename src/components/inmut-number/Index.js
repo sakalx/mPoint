@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 
 const RenderInputNumber = ({
                              className = '',
+                             disabled,
                              error = false,
                              label,
                              onChange,
@@ -14,6 +15,7 @@ const RenderInputNumber = ({
                            }) => (
   <TextField
     className={className}
+    disabled={disabled}
     error={error}
     id={`input-number-${label}`}
     label={label}

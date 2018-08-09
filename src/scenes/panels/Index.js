@@ -18,7 +18,22 @@ import {
   Wrap,
 } from './style';
 
-class Panels extends React.Component {
+const renderSummary = (title, subTitle) => (
+  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+  <Summary>
+    <Typography color='primary' variant='button'>
+      {title}
+    </Typography>
+    <Fade in={!!subTitle} timeout={2000}>
+      <Typography component='h3' variant='headline'>
+        {subTitle}
+      </Typography>
+    </Fade>
+  </Summary>
+</ExpansionPanelSummary>
+);
+
+class Panels extends React.PureComponent {
   state = {
     expanded: 'campaign',
     userName: '',
@@ -31,8 +46,8 @@ class Panels extends React.Component {
     });
   };
 
-  handleSetSummary = name => {
-    this.setState({expanded: null, ...name})
+  handleSetSummary = subTitle => {
+    this.setState({...subTitle})
   };
 
   render() {
@@ -45,18 +60,7 @@ class Panels extends React.Component {
           expanded={expanded === 'user'}
           onChange={this.handleChangePanel('user')}
         >
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-            <Summary>
-              <Typography color='primary' variant='button'>
-                User
-              </Typography>
-              <Fade in={!!userName} timeout={2000}>
-                <Typography color='textSecondary' component='h3' variant='title'>
-                  {userName}
-                </Typography>
-              </Fade>
-            </Summary>
-          </ExpansionPanelSummary>
+        {renderSummary('User', userName)}
           <ExpansionPanelDetails>
             <User setUserSummary={this.handleSetSummary}/>
           </ExpansionPanelDetails>
@@ -67,19 +71,7 @@ class Panels extends React.Component {
           expanded={expanded === 'campaign'}
           onChange={this.handleChangePanel('campaign')}
         >
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-            <Summary>
-              <Typography color='primary' variant='button'>
-                Campaign manager
-              </Typography>
-              <Fade in={!!campaignName} timeout={2000}>
-                <Typography color='textSecondary' component='h3' variant='title'>
-                  {campaignName}
-                </Typography>
-              </Fade>
-            </Summary>
-
-          </ExpansionPanelSummary>
+        {renderSummary('Campaign', campaignName)}
           <ExpansionPanelDetails>
             <Campaign setCampaignSummary={this.handleSetSummary}/>
           </ExpansionPanelDetails>
@@ -90,12 +82,7 @@ class Panels extends React.Component {
           expanded={expanded === 'ad'}
           onChange={this.handleChangePanel('ad')}
         >
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-            <Typography>Ad manager</Typography>
-            <Typography>
-
-            </Typography>
-          </ExpansionPanelSummary>
+        {renderSummary('Ad')}
           <ExpansionPanelDetails>
             <Ad/>
           </ExpansionPanelDetails>
@@ -106,9 +93,7 @@ class Panels extends React.Component {
           expanded={expanded === 'rules'}
           onChange={this.handleChangePanel('rules')}
         >
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-            <Typography>Rules manager</Typography>
-          </ExpansionPanelSummary>
+        {renderSummary('Rules')}
           <ExpansionPanelDetails>
             <Rules/>
           </ExpansionPanelDetails>
@@ -119,9 +104,7 @@ class Panels extends React.Component {
           expanded={expanded === 'admin'}
           onChange={this.handleChangePanel('admin')}
         >
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-            <Typography>Administration</Typography>
-          </ExpansionPanelSummary>
+        {renderSummary('Administration')} 
           <ExpansionPanelDetails>
             <Admin/>
           </ExpansionPanelDetails>

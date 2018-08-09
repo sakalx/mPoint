@@ -3,19 +3,16 @@ import React from 'react';
 import {listOfUserType, listOfLanguage} from 'root/static/lists';
 import {isEmail} from 'root/helpers/validator';
 
-import Button from '@material-ui/core/Button';
-import Zoom from '@material-ui/core/Zoom';
+import SaveButton from 'root/components/save-button';
 
 import {
   Content,
   Input,
-  SaveButton,
-  SaveIcon,
   Select,
   Wrap,
 } from './style';
 
-class User extends React.Component {
+class User extends React.PureComponent {
   state = {
     firstName: {
       error: false,
@@ -63,7 +60,10 @@ class User extends React.Component {
     );
 
     !isError &&
-    this.props.setUserSummary({userName: `${firstName.value} ${lastName.value}`});
+    this.props.setUserSummary({
+      expanded: null,
+      userName: `${firstName.value} ${lastName.value}`,
+    });
   };
 
   _setError = prop => {
@@ -124,14 +124,7 @@ class User extends React.Component {
             value={language.value}
           />
         </Content>
-        <Zoom in={showSaveButton}>
-          <SaveButton>
-            <Button color='primary' onClick={this.handleSave} variant='outlined'>
-              <SaveIcon/>
-              Save
-            </Button>
-          </SaveButton>
-        </Zoom>
+        <SaveButton callBack={this.handleSave} visible={showSaveButton}/>
       </Wrap>
     )
   }

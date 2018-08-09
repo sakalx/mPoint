@@ -4,7 +4,7 @@ export const Wrap = styled('div')`
   margin: 15px;
 `;
 
-export const Summary = styled('div')`
+export const Summary = styled('section')`
   align-items: center;
   display: flex;
   flex: 1;
