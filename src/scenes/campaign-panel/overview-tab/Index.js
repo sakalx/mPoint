@@ -9,10 +9,11 @@ import {
   NewCampaign,
   Overview,
   Search,
+  Shrink,
   Wrap,
 } from './style';
 
-class CampaignOverview extends React.PureComponent {
+class OverviewTab extends React.PureComponent {
   state = {
     searchCampaign: {
       error: false,
@@ -113,6 +114,7 @@ class CampaignOverview extends React.PureComponent {
             onChange={this.handleAddNewCampaign}
             value={newCampaign.value}
           />
+          <Shrink/>
           <Overview
             error={overview.error}
             label='Overview'
@@ -127,4 +129,4 @@ class CampaignOverview extends React.PureComponent {
   }
 }
 
-export default CampaignOverview;
+export default OverviewTab;

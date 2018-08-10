@@ -6,6 +6,8 @@ export const Name = styled('strong')`
 
 export const style = {
   container: {
+    display: 'flex',
+    flex: '1 1 auto',
   },
   suggestionsContainerOpen: {
     marginTop: '5px',

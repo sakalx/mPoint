@@ -1,7 +1,7 @@
 import React from 'react';
 
-import CampaignOverview from './overview';
-import CampaignRule from './rule';
+import OverviewTab from './overview-tab';
+import RuleTab from './rule-tab';
 
 import AppBar from '@material-ui/core/AppBar';
 import Tab from '@material-ui/core/Tab';
@@ -13,7 +13,7 @@ import {
 
 class Campaign extends React.PureComponent {
   state = {
-    value: 1,
+    value: 0,
   };
 
   handleChangeTab = (event, value) => {
@@ -36,8 +36,8 @@ class Campaign extends React.PureComponent {
             <Tab label='Rule'/>
           </Tabs>
         </AppBar>
-        {value === 0 && <CampaignOverview setCampaignSummary={setCampaignSummary}/>}
-        {value === 1 && <CampaignRule/>}
+        {value === 0 && <OverviewTab setCampaignSummary={setCampaignSummary}/>}
+        {value === 1 && <RuleTab/>}
       </Wrap>
     );
   }

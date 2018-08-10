@@ -141,12 +141,15 @@ export const listOfCampaign = [
   {label: 'Campaign 5'},
 ];
 
-export const dummy = [
-  {label: ''},
-];
-
 export const listOfCampaignType = [
   {label: 'Video'},
+  {label: 'option1'},
+  {label: 'option2'},
+  {label: 'option3'},
+];
+
+export const listOfLocation = [
+  {label: 'China'},
   {label: 'option1'},
   {label: 'option2'},
   {label: 'option3'},
