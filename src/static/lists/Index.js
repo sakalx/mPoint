@@ -119,10 +119,11 @@ export const listOfUserType = [
 ];
 
 export const listOfAdType = [
-  {label: 'Banner'},
-  {label: 'option1'},
-  {label: 'option2'},
-  {label: 'option3'},
+  {label: 'Full Banner (468 / 60)'},
+  {label: 'Vertical Banner (120 / 240)'},
+  {label: 'Small Button (120 / 60)'},
+  {label: 'Medium Button (120 / 90)'},
+  {label: 'Large Button (125 / 125)'},
 ];
 
 export const listOfKeyWords = [
@@ -130,6 +131,8 @@ export const listOfKeyWords = [
   {label: 'option1'},
   {label: 'option2'},
   {label: 'option3'},
+  {label: 'option4'},
+  {label: 'option5'},
 ];
 
 
@@ -162,7 +165,7 @@ export const listOfCampaignNet = [
   {label: 'option3'},
 ];
 
-export const listOfGroupType = [
+export const listOfAdGroupType = [
   {label: 'Big'},
   {label: 'option1'},
   {label: 'option2'},

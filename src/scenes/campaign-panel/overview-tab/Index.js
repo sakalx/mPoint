@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import {listOfCampaign} from 'root/static/lists';
 
 import SaveButton from 'root/components/save-button';

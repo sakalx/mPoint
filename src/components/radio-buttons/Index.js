@@ -14,8 +14,14 @@ const RadioButtons = ({
                         row = false,
                         title,
                         value,
+                        disabled=false
                       }) => (
-  <FormControl component="fieldset" error={error} className={className}>
+  <FormControl
+    className={className}
+    component="fieldset"
+    disabled={disabled}
+    error={error}
+  >
     <FormLabel component="legend">{title}</FormLabel>
     <RadioGroup
       aria-label={title}

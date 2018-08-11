@@ -9,11 +9,11 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Fade from '@material-ui/core/Fade';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 
 import {
   Summary,
+  SummarySubTitle,
   Wrap,
 } from './style';
 
@@ -24,9 +24,9 @@ const renderSummary = (title, subTitle) => (
         {title}
       </Typography>
       <Fade in={!!subTitle} timeout={2000}>
-        <Typography color='textSecondary' component='h3' variant='headline'>
+        <SummarySubTitle color='textSecondary' component='h3' variant='title'>
           {subTitle}
-        </Typography>
+        </SummarySubTitle>
       </Fade>
     </Summary>
   </ExpansionPanelSummary>
@@ -37,6 +37,7 @@ class Panels extends React.PureComponent {
     expanded: 'ad',
     userName: 'ss',
     campaignName: 'cc',
+    adType: '',
   };
 
   handleChangePanel = panel => (event, expanded) => {
@@ -50,7 +51,7 @@ class Panels extends React.PureComponent {
   };
 
   render() {
-    const {expanded, userName, campaignName} = this.state;
+    const {expanded, userName, campaignName, adType} = this.state;
 
     return (
       <Wrap>
@@ -83,9 +84,9 @@ class Panels extends React.PureComponent {
           expanded={expanded === 'ad'}
           onChange={this.handleChangePanel('ad')}
         >
-          {renderSummary('Ad')}
+          {renderSummary('Ad', adType)}
           <ExpansionPanelDetails>
-            <Ad/>
+            <Ad setAdSummary={this.handleSetSummary}/>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Wrap>

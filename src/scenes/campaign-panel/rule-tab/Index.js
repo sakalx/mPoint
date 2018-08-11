@@ -15,6 +15,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
 
 import {
+  EditButton,
   EditIcon,
   LabelValue,
   SaveIcon,
@@ -25,12 +26,12 @@ import {
 class RuleTab extends React.PureComponent {
   state = {
     activeStep: 0,
-    budget: {value: 0},
     status: {enabled: true},
     type: {value: ''},
-    network: {value: ''},
     locations: {value: ''},
+    network: {value: ''},
     startDate: {value: ''},
+    budget: {value: 0},
     endDate: {value: ''},
   };
 
@@ -38,7 +39,7 @@ class RuleTab extends React.PureComponent {
     this.setState({activeStep: 0});
   };
 
-  handleSwitchStatus = label => ({target}) => {
+  handleChangeStatus = label => ({target}) => {
     this.setState(({status}) => ({
         status: {
           ...status,
@@ -147,7 +148,7 @@ class RuleTab extends React.PureComponent {
     return (
       <Wrap>
         <Status
-          onChange={this.handleSwitchStatus}
+          onChange={this.handleChangeStatus}
           switches={status}
           label={status.enabled ? 'Enabled' : 'Disabled'}
         />
@@ -172,9 +173,9 @@ class RuleTab extends React.PureComponent {
           }
         </Stepper>
         <Collapse in={activeStep === this.getSteps().length}>
-          <Button color='primary' onClick={this.handleReset} variant='contained'>
+          <EditButton color='primary' onClick={this.handleReset} variant='contained'>
             <EditIcon/> Edit
-          </Button>
+          </EditButton>
         </Collapse>
       </Wrap>
     )
