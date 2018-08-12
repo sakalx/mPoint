@@ -135,15 +135,6 @@ export const listOfKeyWords = [
   {label: 'option5'},
 ];
 
-
-export const listOfCampaign = [
-  {label: 'Campaign 1'},
-  {label: 'Campaign 2'},
-  {label: 'Campaign 3'},
-  {label: 'Campaign 4'},
-  {label: 'Campaign 5'},
-];
-
 export const listOfCampaignType = [
   {label: 'Video'},
   {label: 'option1'},
@@ -170,4 +161,74 @@ export const listOfAdGroupType = [
   {label: 'option1'},
   {label: 'option2'},
   {label: 'option3'},
+];
+
+export const listOfCampaignDummy = [
+  {
+    uid: 'uid1',
+    name: 'Fake Campaign',
+    overview: 'Some real important overview',
+    type: 'video',
+    locations: 'China',
+    network: 'Chanel China',
+    budget: '3243',
+    startDate: '2018-08-12',
+    endDate: '2018-08-13',
+    enabled: true,
+  }, {
+    uid: 'uid2',
+    name: 'Dummy Campaign',
+    overview: 'Some real important overview',
+    type: 'video',
+    locations: 'China',
+    network: 'Chanel China',
+    budget: '223',
+    startDate: '2018-07-12',
+    endDate: '2018-12-23',
+    enabled: false,
+  }, {
+    uid: 'uid3',
+    name: 'Nice Campaign',
+    overview: 'Some real important overview',
+    type: 'video',
+    locations: 'China',
+    network: 'Chanel China',
+    budget: '6542',
+    startDate: '2018-08-08',
+    endDate: '2018-12-12',
+    enabled: true,
+  }, {
+    uid: 'uid3gdrgr4',
+    name: 'Nice Campaign',
+    overview: 'Some real important overview',
+    type: 'video',
+    locations: 'China',
+    network: 'Chanel China',
+    budget: '6542',
+    startDate: '2018-08-08',
+    endDate: '2018-12-12',
+    enabled: false,
+  }, {
+    uid: 'uid3grd',
+    name: 'Nice Campaign',
+    overview: 'Some real important overview',
+    type: 'video',
+    locations: 'China',
+    network: 'Chanel China',
+    budget: '6542',
+    startDate: '2018-08-08',
+    endDate: '2018-12-12',
+    enabled: false,
+  }, {
+    uid: 'uid3gr',
+    name: 'Nice Campaign',
+    overview: 'Some real important overview',
+    type: 'video',
+    locations: 'China',
+    network: 'Chanel China',
+    budget: '6542',
+    startDate: '2018-08-08',
+    endDate: '2018-12-12',
+    enabled: true,
+  },
 ];

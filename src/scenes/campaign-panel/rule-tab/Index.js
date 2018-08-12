@@ -74,20 +74,15 @@ class RuleTab extends React.PureComponent {
   };
 
   handleSave = () => {
-    const {status, startDate, endDate} = this.state;
-    const date = startDate.value ? `${startDate.value} to ${endDate.value}` : '';
-    const active = status.enabled ? 'Enabled' : 'Disabled';
+    const {startDate, endDate} = this.state;
     const validRangeDate = (+new Date(endDate.value) - +new Date(startDate.value)) > 0;
 
-    if (validRangeDate) {
-      this.setState(({activeStep}) => ({
+    validRangeDate
+      ? this.setState(({activeStep}) => ({
         activeStep: activeStep + 1,
         errorData: false,
-      }));
-      this.props.handleSave(date, active);
-    } else {
-      this.setState({errorData: true});
-    }
+      }))
+      : this.setState({errorData: true});
   };
 
   getSteps = () => {

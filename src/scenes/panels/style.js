@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components';
 
-import AdIco from '@material-ui/icons/VerifiedUser';
-import CampaignIco from '@material-ui/icons/VerifiedUser';
+import AdIco from '@material-ui/icons/AttachFile';
+import CampaignIco from '@material-ui/icons/Widgets';
 import Typography from '@material-ui/core/Typography';
 import UserIco from '@material-ui/icons/Person';
 

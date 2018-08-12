@@ -11,9 +11,9 @@ export const style = {
   },
   suggestionsContainerOpen: {
     marginLeft: '15px',
-    marginTop: '85px',
+    marginTop: '70px',
     position: 'absolute',
-    zIndex: 3,
+    zIndex: 2000,
   },
   suggestion: {
     display: 'block',

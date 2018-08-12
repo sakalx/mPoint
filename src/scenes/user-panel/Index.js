@@ -53,6 +53,7 @@ class User extends React.PureComponent {
   };
 
   handleSave = () => {
+    const {firstName, lastName} = this.state;
     let isError = false;
 
     Object.entries(this.state).forEach(state =>
@@ -64,7 +65,7 @@ class User extends React.PureComponent {
     !isError &&
     this.props.handlePanel({
       expanded: 'campaign',
-      userSubTitle: this._userSubTitle,
+      userSubTitle: `${firstName.value} ${lastName.value}`,
     });
   };
 
@@ -76,19 +77,6 @@ class User extends React.PureComponent {
       }
     });
     return true;
-  };
-
-  _userSubTitle = () => {
-    const {firstName, lastName, companyName} = this.state;
-
-    return (
-      <UserSubTitle>
-        <Typography color='textSecondary' variant='title'>
-          {`${firstName.value} ${lastName.value}`}
-        </Typography>
-        <Typography color='textSecondary' variant='body2'>{companyName.value}</Typography>
-      </UserSubTitle>
-    )
   };
 
   render() {

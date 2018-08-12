@@ -3,49 +3,33 @@ import React from 'react';
 import OverviewTab from './overview-tab';
 import RuleTab from './rule-tab';
 
+import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@material-ui/core/AppBar';
-import OverviewIcon from '@material-ui/icons/SettingsPower';
+import OverviewIcon from '@material-ui/icons/Storage';
 import RuleIcon from '@material-ui/icons/Settings';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import Typography from '@material-ui/core/Typography';
 
 import {
-  CampaignSubTitle,
-  Description,
   Wrap,
 } from './style';
 
 class Campaign extends React.PureComponent {
   state = {
     value: 0,
-    campaign: ''
+    enabledRule: false,
   };
 
   handleChangeTab = (event, value) => {
     this.setState({value});
   };
 
-  handleSetCampaign = campaign => {
-    this.setState({campaign});
-  };
-
-  handleSave = (date, status = 'Enabled') => {
-    const campaignSubTitle = () => (
-      <CampaignSubTitle>
-        <Typography color='textSecondary' variant='title'>
-          {this.state.campaign}
-        </Typography>
-        <Description color='textSecondary' variant='body2'>{date}</Description>
-        <Typography variant='caption'>{status}</Typography>
-      </CampaignSubTitle>
-    );
-
-    this.props.handlePanel({campaignSubTitle});
+  handleEnableRuleTab = enabledRule => {
+    this.setState({enabledRule});
   };
 
   render() {
-    const {campaign, value} = this.state;
+    const {enabledRule, value} = this.state;
 
     return (
       <Wrap>
@@ -56,18 +40,16 @@ class Campaign extends React.PureComponent {
             fullWidth
           >
             <Tab icon={<OverviewIcon/>} label='Overview'/>
-            <Tab disabled={!campaign} icon={<RuleIcon/>} label='Rule'/>
+            <Tab disabled={!enabledRule} icon={<RuleIcon/>} label='Rule'/>
           </Tabs>
         </AppBar>
-        {value === 0 &&
-        <OverviewTab
-          changeTab={this.handleChangeTab}
-          handleSave={this.handleSave}
-          setCampaign={this.handleSetCampaign}
-        />}
-        {value === 1 &&
-        <RuleTab handleSave={this.handleSave}/>
-        }
+        <SwipeableViews index={value} onChangeIndex={this.handleChangeTab}>
+          <OverviewTab
+            changeTab={this.handleChangeTab}
+            enableRuleTab={this.handleEnableRuleTab}
+          />
+          <RuleTab/>
+        </SwipeableViews>
       </Wrap>
     );
   }

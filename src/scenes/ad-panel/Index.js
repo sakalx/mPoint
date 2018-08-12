@@ -2,6 +2,7 @@ import React from 'react';
 
 import {listOfAdType, listOfKeyWords, listOfAdGroupType} from 'root/static/lists';
 
+import {smartPhone} from 'root/static/icon';
 import SaveButton from 'root/components/save-button';
 
 import Typography from '@material-ui/core/Typography';
@@ -10,13 +11,14 @@ import Zoom from '@material-ui/core/Zoom';
 import {
   AdSubTitle,
   ChangeType,
+  Content,
   Description,
-  LeftColumn,
   Main,
   PhoneScreen,
   SelectGroupType,
   SelectKeywords,
   ShapeAd,
+  SmartPhoneIcon,
   Status,
   Wrap,
 } from './style';
@@ -72,36 +74,18 @@ class Ad extends React.PureComponent {
   };
 
   handleSave = () => {
-    const {status, type, groupType} = this.state;
-
-    const adTypeSubTitle = () => (
-      <AdSubTitle>
-        <Typography color='textSecondary' variant='title'>
-          {type.value}
-        </Typography>
-        <Description color='textSecondary' variant='body2'>{groupType.value}</Description>
-        <Typography variant='caption'>
-          {status.enabled ? 'Enabled' : 'Disabled'}
-        </Typography>
-      </AdSubTitle>
-    );
-
-    this.props.handlePanel({
-      adTypeSubTitle,
-      expanded: false,
-    });
+    this.props.handlePanel({expanded: false});
   };
 
   render() {
     const {status, type, groupType, keywords, showShape} = this.state;
-    // FIXME regExp here pls.
-    const label = type.value.split(' (')[0];
+    // FIXME regExp here pls. 😥😤
     const size = type.value.split('(')[1].split(')')[0].split(' ').join().split(',/,');
     const showSaveButton = type.value && groupType.value && !!keywords.length;
 
     return (
       <Wrap>
-        <LeftColumn>
+        <Content>
           <Status
             onChange={this.handleChangeStatus}
             switches={status}
@@ -132,15 +116,20 @@ class Ad extends React.PureComponent {
               value={keywords}
             />
           </Main>
+
           <PhoneScreen>
             <Zoom in={showShape}>
               <ShapeAd size={size}>
-                <Typography color='textSecondary' variant='subheading'>{label}</Typography>
-                <Typography color='textSecondary' variant='subheading'>{size.join(' / ')}</Typography>
+                <Typography color='textSecondary' component='h5' variant='subheading'>
+                  {size.join(' / ')}
+                </Typography>
               </ShapeAd>
             </Zoom>
+            <SmartPhoneIcon color={status.enabled ? 'action' : 'disabled'} viewBox='200 0 800 800'>
+              {smartPhone()}
+            </SmartPhoneIcon>
           </PhoneScreen>
-        </LeftColumn>
+        </Content>
         <SaveButton callBack={this.handleSave} visible={showSaveButton}/>
       </Wrap>
     )

@@ -30,7 +30,7 @@ const renderSummary = (Icon, title, subTitle) => (
       </SummaryTitle>
       <Fade in={!!subTitle} timeout={2000}>
         <SummarySubTitle color='textSecondary' component='div' variant='title'>
-          {subTitle ? subTitle() : <span/>}
+          {subTitle}
         </SummarySubTitle>
       </Fade>
     </Summary>
@@ -39,10 +39,8 @@ const renderSummary = (Icon, title, subTitle) => (
 
 class Panels extends React.PureComponent {
   state = {
-    expanded: 'campaign',
-    userSubTitle: () => 'sakal',
-    campaignSubTitle: null,
-    adTypeSubTitle: null,
+    expanded: 'user',
+    userSubTitle: '',
   };
 
   handleChangePanel = panel => (event, expanded) => {
@@ -77,7 +75,7 @@ class Panels extends React.PureComponent {
   );
 
   render() {
-    const {userSubTitle, campaignSubTitle, adTypeSubTitle} = this.state;
+    const {userSubTitle} = this.state;
 
     return (
       <Wrap>
@@ -93,15 +91,13 @@ class Panels extends React.PureComponent {
           expanded: 'campaign',
           Icon: CampaignIcon,
           summaryTitle: 'Campaign',
-          summarySubTitle: campaignSubTitle,
           Panel: Campaign,
         })}
         {this.renderExpansionPanel({
-          disabled: !campaignSubTitle,
+          disabled: !userSubTitle,
           Icon: AdIcon,
           expanded: 'ad',
           summaryTitle: 'Ad',
-          summarySubTitle: adTypeSubTitle,
           Panel: Ad,
         })}
       </Wrap>
