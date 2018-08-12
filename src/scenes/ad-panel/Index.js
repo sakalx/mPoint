@@ -8,7 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Zoom from '@material-ui/core/Zoom';
 
 import {
+  AdSubTitle,
   ChangeType,
+  Description,
   LeftColumn,
   Main,
   PhoneScreen,
@@ -70,10 +72,22 @@ class Ad extends React.PureComponent {
   };
 
   handleSave = () => {
-    const {type, groupType} = this.state;
+    const {status, type, groupType} = this.state;
 
-    this.props.setAdSummary({
-      adType: `${type.value} ${groupType.value}`,
+    const adTypeSubTitle = () => (
+      <AdSubTitle>
+        <Typography color='textSecondary' variant='title'>
+          {type.value}
+        </Typography>
+        <Description color='textSecondary' variant='body2'>{groupType.value}</Description>
+        <Typography variant='caption'>
+          {status.enabled ? 'Enabled' : 'Disabled'}
+        </Typography>
+      </AdSubTitle>
+    );
+
+    this.props.handlePanel({
+      adTypeSubTitle,
       expanded: false,
     });
   };

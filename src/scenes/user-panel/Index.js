@@ -5,10 +5,13 @@ import {isEmail} from 'root/helpers/validator';
 
 import SaveButton from 'root/components/save-button';
 
+import Typography from '@material-ui/core/Typography';
+
 import {
   Content,
   Input,
   Select,
+  UserSubTitle,
   Wrap,
 } from './style';
 
@@ -50,7 +53,6 @@ class User extends React.PureComponent {
   };
 
   handleSave = () => {
-    const {firstName, lastName} = this.state;
     let isError = false;
 
     Object.entries(this.state).forEach(state =>
@@ -60,9 +62,9 @@ class User extends React.PureComponent {
     );
 
     !isError &&
-    this.props.setUserSummary({
-      expanded: null,
-      userName: `${firstName.value} ${lastName.value}`,
+    this.props.handlePanel({
+      expanded: 'campaign',
+      userSubTitle: this._userSubTitle,
     });
   };
 
@@ -74,6 +76,19 @@ class User extends React.PureComponent {
       }
     });
     return true;
+  };
+
+  _userSubTitle = () => {
+    const {firstName, lastName, companyName} = this.state;
+
+    return (
+      <UserSubTitle>
+        <Typography color='textSecondary' variant='title'>
+          {`${firstName.value} ${lastName.value}`}
+        </Typography>
+        <Typography color='textSecondary' variant='body2'>{companyName.value}</Typography>
+      </UserSubTitle>
+    )
   };
 
   render() {

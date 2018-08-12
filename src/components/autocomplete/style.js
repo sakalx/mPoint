@@ -10,7 +10,8 @@ export const style = {
     flex: '1 1 auto',
   },
   suggestionsContainerOpen: {
-    marginTop: '5px',
+    marginLeft: '15px',
+    marginTop: '85px',
     position: 'absolute',
     zIndex: 3,
   },

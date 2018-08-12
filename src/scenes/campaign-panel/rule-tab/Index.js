@@ -1,5 +1,7 @@
 import React from 'react';
 
+import SaveButton from 'root/components/save-button';
+
 import {
   TypeSelect,
   NetworkSelect,
@@ -30,13 +32,22 @@ class RuleTab extends React.PureComponent {
     type: {value: ''},
     locations: {value: ''},
     network: {value: ''},
-    startDate: {value: ''},
     budget: {value: 0},
+    startDate: {value: ''},
     endDate: {value: ''},
+    errorData: false,
   };
 
   handleReset = () => {
     this.setState({activeStep: 0});
+  };
+
+  handleNextStep = isLastStep => {
+    isLastStep
+      ? this.handleSave()
+      : this.setState(({activeStep}) => ({
+        activeStep: activeStep + 1,
+      }))
   };
 
   handleChangeStatus = label => ({target}) => {
@@ -45,7 +56,7 @@ class RuleTab extends React.PureComponent {
           ...status,
           [label]: target.checked,
         },
-        activeStep: target.checked ? 4 : -1,
+        activeStep: target.checked ? 4 : -2,
       })
     );
   };
@@ -60,6 +71,23 @@ class RuleTab extends React.PureComponent {
         }
       })
     );
+  };
+
+  handleSave = () => {
+    const {status, startDate, endDate} = this.state;
+    const date = startDate.value ? `${startDate.value} to ${endDate.value}` : '';
+    const active = status.enabled ? 'Enabled' : 'Disabled';
+    const validRangeDate = (+new Date(endDate.value) - +new Date(startDate.value)) > 0;
+
+    if (validRangeDate) {
+      this.setState(({activeStep}) => ({
+        activeStep: activeStep + 1,
+        errorData: false,
+      }));
+      this.props.handleSave(date, active);
+    } else {
+      this.setState({errorData: true});
+    }
   };
 
   getSteps = () => {
@@ -92,7 +120,7 @@ class RuleTab extends React.PureComponent {
   renderStepLabel = (label, values) => {
     if (values[0].value) {
       return (
-        <StepLabel>
+        <StepLabel error={label === 'Date' ? this.state.errorData : false}>
           {label} :
           {values.map(({value}, index) => (
             <LabelValue key={String(index)} enabled={this.state.status.enabled}>
@@ -122,7 +150,7 @@ class RuleTab extends React.PureComponent {
         )}
         <Button
           color='primary'
-          onClick={() => this.setState({activeStep: activeStep + 1})}
+          onClick={() => this.handleNextStep(isLastStep)}
           variant='contained'
         >
           {isLastStep && <SaveIcon/>}
@@ -177,9 +205,17 @@ class RuleTab extends React.PureComponent {
             <EditIcon/> Edit
           </EditButton>
         </Collapse>
+        {!status.enabled && (
+          <SaveButton
+            callBack={() => this.handleNextStep(true)}
+            visible={!status.enabled}
+          />
+        )}
       </Wrap>
     )
   }
 }
 
 export default RuleTab;
+
+// new Date("2018-08-15").toLocaleDateString()

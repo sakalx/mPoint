@@ -3,6 +3,8 @@ import styled, {css} from 'styled-components';
 import Autocomplete from 'root/components/autocomplete';
 import RenderInput from 'root/components/input';
 
+import SetRuleIco from '@material-ui/icons/Settings';
+
 const _margin = css`
   margin: 15px !important;
 `;
@@ -33,4 +35,14 @@ export const Shrink = styled('span')`
 export const Overview = styled(RenderInput)`
   width: 100%;
   ${_margin};
+`;
+
+export const WrapButton = styled('div')`
+  text-align: right;
+  margin: 15px;
+`;
+
+export const SetRuleIcon = styled(SetRuleIco)`
+  font-size: 20px;
+  margin-right: 15px;
 `;

@@ -33,3 +33,10 @@ export const Select = styled(RenderSelect)`
   ${_margin};
   ${_widthField};
 `;
+
+export const UserSubTitle = styled('header')`
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;

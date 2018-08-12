@@ -6,6 +6,8 @@ import RadioButtons from 'root/components/radio-buttons';
 import RenderSelect from 'root/components/select';
 import SwitchesGroup from 'root/components/switches-group';
 
+import Typography from '@material-ui/core/Typography';
+
 const {palette} = muiTheme;
 
 const _margin = css`
@@ -50,7 +52,7 @@ export const SelectGroupType = styled(RenderSelect)`
 export const PhoneScreen = styled('aside')`
   border: 1px solid #000;
   display: flex;
-  height: 550px;
+  height: 520px;
   margin: auto;
   max-width: 320px;
   padding: 5px;
@@ -66,4 +68,15 @@ export const ShapeAd = styled('div')`
     flex: 0 1 ${size[0]}px;
     height: ${size[1]}px;
   `}
+`;
+
+export const AdSubTitle = styled('header')`
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+export const Description = styled(Typography)`
+  margin: 15px !important;
 `;

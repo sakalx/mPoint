@@ -4,53 +4,63 @@ import {listOfCampaign} from 'root/static/lists';
 
 import SaveButton from 'root/components/save-button';
 
+import Button from '@material-ui/core/Button';
+import Zoom from '@material-ui/core/Zoom';
+
 import {
   NewCampaign,
   Overview,
   Search,
+  SetRuleIcon,
   Shrink,
   Wrap,
+  WrapButton,
 } from './style';
 
 class OverviewTab extends React.PureComponent {
   state = {
     searchCampaign: {
-      error: false,
-      errorMsg: 'Not found, add new instead',
+      helperText: 'If not found, add new instead',
+      isFound: null,
       value: '',
     },
     newCampaign: {
-      error: false,
       value: '',
     },
     overview: {
-      error: false,
-      value: '',
       isChanged: false,
+      value: '',
     },
   };
 
-  handleChangeCampaign = (event, {newValue}) => {
-    this.setState(({searchCampaign}) => ({
+  handleFindCampaign = (event, {newValue}) => {
+    const isFound = listOfCampaign.some(({label}) => label === newValue);
+
+    this.setState(({searchCampaign, overview}) => ({
         searchCampaign: {
           ...searchCampaign,
-          error: false,
+          isFound: isFound,
           value: newValue,
+        },
+        overview: {
+          ...overview,
+          isChanged: false,
         }
       })
     );
   };
 
   handleAddNewCampaign = ({target}) => {
+    const value = target.value.trimStart();
+
     this.setState(({searchCampaign, newCampaign}) => ({
         newCampaign: {
           ...newCampaign,
-          error: false,
-          value: target.value,
+          value,
         },
         searchCampaign: {
           ...searchCampaign,
-          error: false,
+          isFound: null,
           value: '',
         }
       })
@@ -61,7 +71,6 @@ class OverviewTab extends React.PureComponent {
     this.setState(({overview}) => ({
         overview: {
           ...overview,
-          error: false,
           value: target.value,
           isChanged: true,
         }
@@ -69,60 +78,56 @@ class OverviewTab extends React.PureComponent {
     );
   };
 
+  handleSetRule = () => {
+    this.props.changeTab(null, 1);
+    this.props.setCampaign(this.state.newCampaign.value);
+  };
+
   handleSave = () => {
-    const {searchCampaign, newCampaign} = this.state;
-    let campaignName = null;
-
-    if (searchCampaign.value) {
-      const isFound = listOfCampaign.some(({label}) => label === searchCampaign.value);
-
-      !isFound
-        ? this.setState({searchCampaign: {...searchCampaign, error: true}})
-        : campaignName = searchCampaign.value;
-
-    } else {
-      newCampaign.value.length < 3
-        ? this.setState({newCampaign: {...newCampaign, error: true}})
-        : campaignName = newCampaign.value;
-    }
-
-    campaignName &&
-    this.props.setCampaignSummary({campaignName});
+    this.props.setCampaign(this.state.searchCampaign.value);
+    setTimeout(this.props.handleSave, 0)
   };
 
   render() {
     const {searchCampaign, newCampaign, overview} = this.state;
-    const showSaveButton = searchCampaign.value || newCampaign.value;
 
     return (
       <div>
         <Wrap>
           <Search
             disabled={!!newCampaign.value}
-            error={searchCampaign.error}
-            helperText={searchCampaign.error && searchCampaign.errorMsg}
+            helperText={searchCampaign.isFound === false && searchCampaign.helperText}
             label='Campaign'
-            onChange={this.handleChangeCampaign}
+            onChange={this.handleFindCampaign}
             placeholder='Search'
             suggestions={listOfCampaign}
             value={searchCampaign.value}
           />
           <NewCampaign
-            error={newCampaign.error}
             label='New campaign'
             onChange={this.handleAddNewCampaign}
             value={newCampaign.value}
           />
           <Shrink/>
           <Overview
-            error={overview.error}
             label='Overview'
             multiline={true}
             onChange={this.handleChangeOverview}
             value={overview.value}
           />
         </Wrap>
-        <SaveButton callBack={this.handleSave} visible={showSaveButton}/>
+        <Zoom in={!!(newCampaign.value && overview.value)}>
+          <WrapButton>
+            <Button color='primary' variant='outlined' onClick={this.handleSetRule}>
+              <SetRuleIcon/>
+              Set Rule
+            </Button>
+          </WrapButton>
+        </Zoom>
+        <SaveButton
+          callBack={this.handleSave}
+          visible={overview.isChanged && searchCampaign.isFound}
+        />
       </div>
     )
   }

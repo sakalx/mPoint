@@ -9,23 +9,28 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Fade from '@material-ui/core/Fade';
-import Typography from '@material-ui/core/Typography';
 
 import {
+  AdIcon,
+  CampaignIcon,
   Summary,
   SummarySubTitle,
+  SummaryTitle,
+  UserIcon,
   Wrap,
 } from './style';
 
-const renderSummary = (title, subTitle) => (
+
+const renderSummary = (Icon, title, subTitle) => (
   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
     <Summary>
-      <Typography color='primary' variant='button'>
+      {Icon && <Icon color='primary'/>}
+      <SummaryTitle component='h2' color='primary' variant='button'>
         {title}
-      </Typography>
+      </SummaryTitle>
       <Fade in={!!subTitle} timeout={2000}>
-        <SummarySubTitle color='textSecondary' component='h3' variant='title'>
-          {subTitle}
+        <SummarySubTitle color='textSecondary' component='div' variant='title'>
+          {subTitle ? subTitle() : <span/>}
         </SummarySubTitle>
       </Fade>
     </Summary>
@@ -34,10 +39,10 @@ const renderSummary = (title, subTitle) => (
 
 class Panels extends React.PureComponent {
   state = {
-    expanded: 'ad',
-    userName: 'ss',
-    campaignName: 'cc',
-    adType: '',
+    expanded: 'campaign',
+    userSubTitle: () => 'sakal',
+    campaignSubTitle: null,
+    adTypeSubTitle: null,
   };
 
   handleChangePanel = panel => (event, expanded) => {
@@ -46,49 +51,59 @@ class Panels extends React.PureComponent {
     });
   };
 
-  handleSetSummary = subTitle => {
-    this.setState({...subTitle})
+  handlePanel = state => {
+    this.setState({...state})
   };
 
+  renderExpansionPanel = ({
+                            disabled = false,
+                            expanded,
+                            Icon,
+                            Panel,
+                            summarySubTitle,
+                            summaryTitle,
+                          }) => (
+    <ExpansionPanel
+      disabled={disabled}
+      elevation={5}
+      expanded={this.state.expanded === expanded}
+      onChange={this.handleChangePanel(expanded)}
+    >
+      {renderSummary(Icon, summaryTitle, summarySubTitle)}
+      <ExpansionPanelDetails>
+        <Panel handlePanel={this.handlePanel}/>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
+  );
+
   render() {
-    const {expanded, userName, campaignName, adType} = this.state;
+    const {userSubTitle, campaignSubTitle, adTypeSubTitle} = this.state;
 
     return (
       <Wrap>
-        <ExpansionPanel
-          elevation={5}
-          expanded={expanded === 'user'}
-          onChange={this.handleChangePanel('user')}
-        >
-          {renderSummary('User', userName)}
-          <ExpansionPanelDetails>
-            <User setUserSummary={this.handleSetSummary}/>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-
-        <ExpansionPanel
-          disabled={!userName}
-          elevation={5}
-          expanded={expanded === 'campaign'}
-          onChange={this.handleChangePanel('campaign')}
-        >
-          {renderSummary('Campaign', campaignName)}
-          <ExpansionPanelDetails>
-            <Campaign setCampaignSummary={this.handleSetSummary}/>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-
-        <ExpansionPanel
-          disabled={!campaignName}
-          elevation={5}
-          expanded={expanded === 'ad'}
-          onChange={this.handleChangePanel('ad')}
-        >
-          {renderSummary('Ad', adType)}
-          <ExpansionPanelDetails>
-            <Ad setAdSummary={this.handleSetSummary}/>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+        {this.renderExpansionPanel({
+          expanded: 'user',
+          Icon: UserIcon,
+          summaryTitle: 'User',
+          summarySubTitle: userSubTitle,
+          Panel: User,
+        })}
+        {this.renderExpansionPanel({
+          disabled: !userSubTitle,
+          expanded: 'campaign',
+          Icon: CampaignIcon,
+          summaryTitle: 'Campaign',
+          summarySubTitle: campaignSubTitle,
+          Panel: Campaign,
+        })}
+        {this.renderExpansionPanel({
+          disabled: !campaignSubTitle,
+          Icon: AdIcon,
+          expanded: 'ad',
+          summaryTitle: 'Ad',
+          summarySubTitle: adTypeSubTitle,
+          Panel: Ad,
+        })}
       </Wrap>
     );
   }
