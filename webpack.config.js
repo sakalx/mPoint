@@ -172,6 +172,11 @@ const config = {
   resolve: {
     alias: {
       'root': path.resolve(__dirname, develop),
+      'components': path.resolve(__dirname, `${develop}/components`),
+      'helpers': path.resolve(__dirname, `${develop}/helpers`),
+      'redux-core': path.resolve(__dirname, `${develop}/redux-core`),
+      'static': path.resolve(__dirname, `${develop}/static`),
+      'bidwin': path.resolve(__dirname, `${develop}/scenes/bidwin`),
     },
   },
 

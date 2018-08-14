@@ -36,7 +36,7 @@ class CampaignList extends React.PureComponent {
     campaigns: listOfCampaignDummy,
     error: false,
     order: 'asc',
-    orderBy: 'operator',
+    orderBy: 'endDate',
     page: 0,
     rowsPerPage: 5,
   };
