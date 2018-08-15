@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 
-export const Main = styled('main')`
+import Paper from '@material-ui/core/Paper';
+
+export const Main = styled(Paper)`
   display: flex;
   flex-wrap: wrap;
+  margin: 15px auto;
+  padding: 15px;
+  width: 80%;
 `;
 
 export const Menu = styled('nav')`

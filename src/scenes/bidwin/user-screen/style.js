@@ -1,13 +1,13 @@
 import styled, {css} from 'styled-components';
 import muiTheme from 'root/theme';
 
-import Button from '@material-ui/core/Button';
 import RenderInput from 'root/components/input';
 import RenderSelect from 'root/components/select';
 
-const _margin = css`
-  margin: ${muiTheme.spacing.unit}px !important;
-`;
+import Button from '@material-ui/core/Button';
+
+const spacingUnit = `${muiTheme.spacing.unit}px`;
+
 const _widthField = css`
   width: 250px;
 `;
@@ -19,16 +19,16 @@ export const Wrap = styled('div')`
 `;
 
 export const Input = styled(RenderInput)`
-  ${_margin};
+  margin: ${spacingUnit} !important;
   ${_widthField};
 `;
 
 export const Select = styled(RenderSelect)`
-  ${_margin};
+  margin: ${spacingUnit} !important;
   ${_widthField};
 `;
 
 export const Submit = styled(Button)`
-  ${_margin};
+  margin: ${spacingUnit} !important;
   align-self: flex-end;
 `;

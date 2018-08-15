@@ -86,54 +86,54 @@ class UserScreen extends React.PureComponent {
     const disabledSubmit = Object.values(this.state).some(({value}) => !value);
 
     return (
-      <Wrap>
-        <Input
-          error={firstName.error}
-          label='firstName'
-          onChange={({target}) => this.handleChangeState(target, 'firstName')}
-          value={firstName.value}
-        />
-        <Input
-          error={lastName.error}
-          label='lastName'
-          onChange={({target}) => this.handleChangeState(target, 'lastName')}
-          value={lastName.value}
-        />
-        <Input
-          error={email.error}
-          label='email'
-          onChange={({target}) => this.handleChangeState(target, 'email')}
-          value={email.value}
-        />
-        <Input
-          error={companyName.error}
-          label='companyName'
-          onChange={({target}) => this.handleChangeState(target, 'companyName')}
-          value={companyName.value}
-        />
-        <Select
-          error={userType.error}
-          label='User type'
-          list={listOfUserType}
-          onChange={option => this.handleChangeState(option, 'userType')}
-          value={userType.value}
-        />
-        <Select
-          error={language.error}
-          label='Display language'
-          list={listOfLanguage}
-          onChange={option => this.handleChangeState(option, 'language')}
-          value={language.value}
-        />
-        <Submit
-          color='primary'
-          disabled={disabledSubmit}
-          variant='contained'
-          onClick={this.handleSubmit}
-        >
-          Billing
-        </Submit>
-      </Wrap>
+        <Wrap>
+          <Input
+            error={firstName.error}
+            label='firstName'
+            onChange={({target}) => this.handleChangeState(target, 'firstName')}
+            value={firstName.value}
+          />
+          <Input
+            error={lastName.error}
+            label='lastName'
+            onChange={({target}) => this.handleChangeState(target, 'lastName')}
+            value={lastName.value}
+          />
+          <Input
+            error={email.error}
+            label='email'
+            onChange={({target}) => this.handleChangeState(target, 'email')}
+            value={email.value}
+          />
+          <Input
+            error={companyName.error}
+            label='companyName'
+            onChange={({target}) => this.handleChangeState(target, 'companyName')}
+            value={companyName.value}
+          />
+          <Select
+            error={userType.error}
+            label='User type'
+            list={listOfUserType}
+            onChange={option => this.handleChangeState(option, 'userType')}
+            value={userType.value}
+          />
+          <Select
+            error={language.error}
+            label='Display language'
+            list={listOfLanguage}
+            onChange={option => this.handleChangeState(option, 'language')}
+            value={language.value}
+          />
+          <Submit
+            color='primary'
+            disabled={disabledSubmit}
+            variant='contained'
+            onClick={this.handleSubmit}
+          >
+            Billing
+          </Submit>
+        </Wrap>
     )
   }
 }

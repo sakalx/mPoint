@@ -118,6 +118,13 @@ export const listOfUserType = [
   {label: 'option3'},
 ];
 
+export const listOfCampaign = [
+  {label: 'Campaign 1'},
+  {label: 'option1'},
+  {label: 'option2'},
+  {label: 'option3'},
+];
+
 export const listOfAdType = [
   {label: 'Full Banner (468 / 60)'},
   {label: 'Vertical Banner (120 / 240)'},
