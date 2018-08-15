@@ -6,6 +6,7 @@ import {listOfCampaign} from 'static/lists';
 import MenuButton from './menu-button';
 import UserScreen from './user-screen';
 import CampaignScreen from './campaign-screen';
+import AdScreen from './ad-screen';
 
 import {
   Main,
@@ -51,7 +52,7 @@ class Bidwin extends React.Component {
                               selectCampaign={this.handleSelectCampaign}
               />}/>
             <Route path='/ad' render={prop =>
-              <UserScreen {...prop} currentCampaign={currentCampaign}/>}/>
+              <AdScreen {...prop} currentCampaign={currentCampaign}/>}/>
             <Route path='/rule' render={prop =>
               <UserScreen {...prop} currentCampaign={currentCampaign}/>}/>
             <Route path='/admin' component={UserScreen}/>
