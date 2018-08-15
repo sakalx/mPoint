@@ -126,11 +126,10 @@ export const listOfCampaign = [
 ];
 
 export const listOfAdType = [
-  {label: 'Full Banner (468 / 60)'},
-  {label: 'Vertical Banner (120 / 240)'},
-  {label: 'Small Button (120 / 60)'},
-  {label: 'Medium Button (120 / 90)'},
-  {label: 'Large Button (125 / 125)'},
+  {label: 'Banner'},
+  {label: 'option1'},
+  {label: 'option2'},
+  {label: 'option3'},
 ];
 
 export const listOfKeyWords = [
