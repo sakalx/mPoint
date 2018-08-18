@@ -6,6 +6,7 @@ import {InputField} from './style';
 
 const RenderInput = ({
                        className = '',
+                       disabled=false,
                        helperText='',
                        InputLabelProps,
                        label=false,
@@ -14,6 +15,7 @@ const RenderInput = ({
 }) => (
   <InputField
     className={className}
+    disabled={disabled}
     helperText={helperText}
     label={label && camelCaseToString(label)}
     margin="normal"

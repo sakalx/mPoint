@@ -10,6 +10,7 @@ import {
   CampaignTitle,
   Select,
   SelectDate,
+  Status,
   Wrap,
   WrapSelectDate,
 } from './style';
@@ -20,8 +21,7 @@ class CampaignRuleTab extends React.PureComponent {
       value: 0,
     },
     status: {
-      disabled:
-        false,
+      enabled: true,
     },
     type: {
       value: '',
@@ -59,6 +59,16 @@ class CampaignRuleTab extends React.PureComponent {
     );
   };
 
+  handleChangeStatus = label => ({target}) => {
+    this.setState(({status}) => ({
+        status: {
+          ...status,
+          [label]: target.checked,
+        },
+      })
+    );
+  };
+
   handleSetDate = ({value}, prop) => {
     const validRangeDate = () =>
       (+new Date(this.state.endDate.value) - +new Date(this.state.startDate.value)) > 0;
@@ -77,6 +87,7 @@ class CampaignRuleTab extends React.PureComponent {
   renderDateField = ({label, value}) => (
     <SelectDate
       defaultValue={value}
+      disabled={!this.state.status.enabled}
       error={this.state.errorDate}
       label={label}
       onChange={({target}) => this.handleSetDate(target, label)}
@@ -97,32 +108,38 @@ class CampaignRuleTab extends React.PureComponent {
           <Typography variant='subheading'>
             Campaign name:
           </Typography>
-          <CampaignTitle variant='title'>
+          <CampaignTitle variant='title' color={status.enabled ? 'default' : 'textSecondary'}>
             {currentCampaign.value}
           </CampaignTitle>
         </CampaignName>
         <Budget
+          disabled={!status.enabled}
           label='Budget'
           length={5}
           onChange={this.handleChangeBudget}
           suffix='$'
           value={budget.value}
         />
+        <Status
+          label={status.enabled ? 'Enabled' : 'Disabled'}
+          onChange={this.handleChangeStatus}
+          switches={status}
+          title='Status'
+        />
         <Select
-          disabled={status.disabled}
+          disabled={!status.enabled}
           label='Campaign type'
           list={listOfCampaignType}
           onChange={value => this.handleChangeState(value, 'type')}
           value={type.value}
         />
         <Select
-          disabled={status.disabled}
+          disabled={!status.enabled}
           label='Networks'
           list={listOfCampaignNet}
           onChange={value => this.handleChangeState(value, 'network')}
           value={network.value}
         />
-
         <WrapSelectDate noValidate>
           {this.renderDateField({label: 'startDate', value: startDate.value})}
           {this.renderDateField({label: 'endDate', value: endDate.value})}

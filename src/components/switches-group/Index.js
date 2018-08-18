@@ -17,7 +17,7 @@ const SwitchesGroup = ({
   const group = Object.keys(switches);
 
   return (
-    <FormControl component="fieldset" className={className}>
+    <FormControl component="div" className={className}>
       <FormLabel component="legend">{title}</FormLabel>
       <FormGroup row={row}>
         {group.map((key, index) => (

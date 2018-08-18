@@ -7,7 +7,7 @@ export const Main = styled(Paper)`
   flex-wrap: wrap;
   margin: 15px auto;
   padding: 15px;
-  width: 80%;
+  width: 90%;
 `;
 
 export const Menu = styled('nav')`

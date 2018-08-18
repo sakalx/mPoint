@@ -2,8 +2,10 @@ import styled, {css} from 'styled-components';
 import muiTheme from 'root/theme';
 
 import RenderInput from 'components/input';
-import RenderInputNumber from 'root/components/inmut-number';
+import RenderInputNumber from 'components/inmut-number';
 import RenderSelect from 'components/select';
+import SwitchesGroup from 'components/switches-group';
+
 import Typography from '@material-ui/core/Typography';
 
 const spacingUnit = `${muiTheme.spacing.unit}px`;
@@ -36,6 +38,14 @@ export const CampaignTitle = styled(Typography)`
 export const Budget = styled(RenderInputNumber)`
   ${_widthField};
   margin: ${spacingUnit} !important;
+`;
+
+export const Status = styled(SwitchesGroup)`
+  align-items: center;
+  flex-direction: row !important;
+  justify-content: space-between;
+  margin: ${spacingUnit} !important;
+  width: 250px;
 `;
 
 export const Select = styled(RenderSelect)`
