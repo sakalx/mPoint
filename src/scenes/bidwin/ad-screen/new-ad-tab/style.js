@@ -5,7 +5,7 @@ import RenderSelect from 'root/components/select';
 
 const spacingUnit = `${muiTheme.spacing.unit}px`;
 
-export const Col = styled('div')`
+const _coll = styled('div')`
   display: flex;
   flex-direction: column;
 `;
@@ -15,18 +15,16 @@ export const Row = styled('div')`
   flex-wrap: wrap;
 `;
 
-export const Wrap = Col.extend`
+export const Wrap = _coll.extend`
   margin: ${spacingUnit};
 `;
 
 export const Select = styled(RenderSelect)`
-  align-self: flex-end; 
   margin: ${spacingUnit} !important;
-  max-width: 250px;
-  width: 100%;
+  width: 250px;
 `;
 
-export const Shapes = Col.extend`
+export const Shapes = _coll.extend`
   margin: auto;
   max-width: 482px;
   width: 100%;
@@ -37,15 +35,15 @@ export const RowShapes = Row.extend`
   width: 100%;
 `;
 
-export const LeftShapes = Col.extend`
+export const LeftShapes = _coll.extend`
   flex: 1;
 `;
 
-export const RightShapes = Col.extend`
+export const RightShapes = _coll.extend`
   align-items: flex-end;
   flex: 1;  
 `;
-console.log(muiTheme.palette);
+
 export const AdShape = Row.withComponent('section').extend`
   ${({size}) => `
     height: ${size[1]}px;
@@ -58,4 +56,3 @@ export const AdShape = Row.withComponent('section').extend`
   margin: ${spacingUnit};
   text-align: center;
 `;
-

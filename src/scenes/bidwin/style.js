@@ -17,6 +17,7 @@ export const Menu = styled('nav')`
   flex: 1;
 `;
 
-export const Screen = styled('nav')`
+export const Screen = styled('div')`
   flex: 3;
+  width: 100%;
 `;

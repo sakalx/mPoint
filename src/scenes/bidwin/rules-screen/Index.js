@@ -1,19 +1,21 @@
 import React from 'react';
 
-import NewAdTab from './new-ad-tab';
-import NewAdUnitTab from './new-adunit-tab';
-import CampaignRuleTab from './campaign-rule-tab';
+import KeywordsTab from './keywords-tab';
+import LocationsTab from './locations-tab';
+import SettingsTab from './settings-tab';
 
 import SwipeableViews from 'react-swipeable-views';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import AppBar from '@material-ui/core/AppBar';
 
 import {
+  SaveButton,
   Wrap,
 } from './style';
 
-class AdScreen extends React.PureComponent {
+class RulesScreen extends React.PureComponent {
   state = {
     value: 0,
   };
@@ -35,19 +37,25 @@ class AdScreen extends React.PureComponent {
             textColor='primary'
             value={value}
           >
-            <Tab label='Create ad'/>
-            <Tab label='Create ad unit'/>
-            <Tab label='Campaign rules'/>
+            <Tab label='Keywords'/>
+            <Tab label='Locations'/>
+            <Tab label='Settings'/>
           </Tabs>
         </AppBar>
         <SwipeableViews index={value} onChangeIndex={this.handleChangeTab}>
-          <NewAdTab/>
-          <NewAdUnitTab/>
-          <CampaignRuleTab currentCampaign={this.props.currentCampaign}/>
+          <KeywordsTab currentCampaign={this.props.currentCampaign}/>
+          <LocationsTab currentCampaign={this.props.currentCampaign}/>
+          <SettingsTab currentCampaign={this.props.currentCampaign}/>
         </SwipeableViews>
+
+        <SaveButton>
+          <Button color='primary' variant='contained'>
+            Save
+          </Button>
+        </SaveButton>
       </Wrap>
     );
   }
 }
 
-export default AdScreen;
+export default RulesScreen;
